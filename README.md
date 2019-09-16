@@ -18,7 +18,7 @@ Angular 8 CRUD
 - Install angular material framework
 ```shel
 npm install -g @angular/cli
-npm i @angular-devkit/build-angulars
+npm install @angular-devkit/build-angular
 ```
 
 ## Basic workflow
@@ -47,38 +47,67 @@ ng config
 Add Dependency of Angular Material
 ```shel
 ng add @angular/material
-```
-Alternative
-```shel
+# Alternative command with node npm
 npm install --save @angular/material @angular/cdk @angular/animations
 ```
 
-New Component. Generates files based on a schematic.
+Creating new component for login/auth. Generates files based on a schematic.
 ```shel
-ng generate component xyz
+cd src
+cd app
+ng generate component autenticacao
+cd autenticacao
+ng generate service autenticacao
+```
+
+Configurações do sistema para usuários.
+Creating new areas/module and components. Generates files based on a schematic.
+```shel
+ng generate module configuracao
+cd configuracao
+ng generate module usuario
+cd usuario
+ng generate service usuario
+ng generate component usuario-parametro
+ng generate component usuario-perfil
+```
+
+Configurações do cadastro e manutenção de obras. Partindo da raiz do projeto.
+Creating new components. Generates files based on a schematic.
+```shel
+ng generate module obra
+cd obra
+ng generate service obra
+ng generate component dashboard
+ng generate component obra-listar
+ng generate component obra-manter
+```
+
+?
 ng generate class Hero
 ng new angular-forms
+
+Validate application code using basic roles
+```shel
+ng lint
 ```
 
 Output directory named dist/
-```
+```shell
 ng build
 ```
 
-ng lint
-
-
-
 Runs unit tests
+```shel
 ng test
+```
 
 Compiles an angular app. Build for Production
 ```shel
 ng build certificador-app -c production
 ```
 
-Download dependencies:
+After download this repository, download and install dependencies.
 ```shel
 npm install
 ```
-

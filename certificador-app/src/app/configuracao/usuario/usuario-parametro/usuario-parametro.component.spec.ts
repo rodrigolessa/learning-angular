@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RequerenteComponent } from './requerente.component';
+import { UsuarioParametroComponent } from './usuario-parametro.component';
 
-describe('RequerenteComponent', () => {
-  let component: RequerenteComponent;
-  let fixture: ComponentFixture<RequerenteComponent>;
+describe('UsuarioParametroComponent', () => {
+  let component: UsuarioParametroComponent;
+  let fixture: ComponentFixture<UsuarioParametroComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RequerenteComponent ]
+      declarations: [ UsuarioParametroComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RequerenteComponent);
+    fixture = TestBed.createComponent(UsuarioParametroComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
