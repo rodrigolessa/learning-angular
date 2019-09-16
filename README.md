@@ -56,6 +56,8 @@ npm install --save @angular/material @angular/cdk @angular/animations
 New Component. Generates files based on a schematic.
 ```shel
 ng generate component xyz
+ng generate class Hero
+ng new angular-forms
 ```
 
 Output directory named dist/
