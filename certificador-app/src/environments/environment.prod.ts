@@ -1,4 +1,5 @@
 export const environment = {
   production: true,
-  urlBase: 'http://server:1102'
+  baseUrl: 'http://server:1102',
+  apiUrl: 'http://my-api-url'
 };

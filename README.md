@@ -92,19 +92,20 @@ Validate application code using basic roles
 ng lint
 ```
 
-Output directory named dist/
-```shell
+Compiles an angular app. Build for Production. I this project you find extra enviroments files, like Staging and QA. Output directory named dist/
+```shel
 ng build
+# Alternative
+ng build --prod
+# Alternative
+ng build certificador-app -c production
+# Alternative
+ng build --configuration=production
 ```
 
 Runs unit tests
 ```shel
 ng test
-```
-
-Compiles an angular app. Build for Production
-```shel
-ng build certificador-app -c production
 ```
 
 After download this repository, download and install dependencies.
