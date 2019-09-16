@@ -1,0 +1,9 @@
+<app-header *ngIf="verificaLogin()"></app-header>
+<app-side-menu *ngIf="verificaLogin()" (menuAberto)="abrirMenu($event)"></app-side-menu>
+<div class="app-content" [ngClass]="{'menu-aberto': menuAberto, 'sem-fundo': semFundo}">
+    <div class="loading-content" *ngIf="loading">
+        <mat-spinner></mat-spinner>
+    </div>
+    <router-outlet></router-outlet>
+</div>
+<app-footer *ngIf="verificaLogin()" [ngClass]="{'menu-aberto': menuAberto}"></app-footer>

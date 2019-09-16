@@ -1,0 +1,21 @@
+<div class="content">
+    <div class="row" sw lh>
+        <app-chart ngModule xw mh [dataset]="datasetColaboradores" *ngIf="datasetColaboradores.ativo" (closeClick)="datasetColaboradores.ativo = false"
+            (refreshClick)="exibirColaboradores()"></app-chart>
+        <app-chart ngModule xw mh [dataset]="datasetAniversariantes" *ngIf="datasetAniversariantes.ativo" (closeClick)="datasetAniversariantes.ativo = false"
+            (refreshClick)="exibirAniversariantes()"></app-chart>
+    </div>
+
+    <div class="row" lw lh>
+        <app-chart ngModule xw mh [dataset]="datasetAtividades" *ngIf="datasetAtividades.ativo" (closeClick)="datasetAtividades.ativo = false"
+            (refreshClick)="exibirAtividades()"></app-chart>
+
+        <app-chart ngModule sw sh [dataset]="datasetSaldoPonto" *ngIf="datasetSaldoPonto.ativo" (closeClick)="datasetSaldoPonto.ativo = false"
+            (refreshClick)="exibirSaldo()">
+        </app-chart>
+
+        <div style="display: inline" *ngFor="let saldoTicket of datasetTickets">
+            <app-chart ngModule sw sh [dataset]="saldoTicket" *ngIf="saldoTicket.ativo" (closeClick)="saldoTicket.ativo = false" (refreshClick)="exibirSaldoTickets()"></app-chart>
+        </div>
+    </div>
+</div>

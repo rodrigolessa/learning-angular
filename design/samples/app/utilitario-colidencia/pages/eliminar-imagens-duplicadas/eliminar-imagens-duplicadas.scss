@@ -1,0 +1,93 @@
+.cardImagem2 {
+  max-height: 130px;
+  margin-bottom: 30px;
+  text-align: center;
+  user-select: none;
+
+  .mat-button {
+    float: right;
+    box-sizing: border-box;
+    position: relative;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    cursor: pointer;
+    outline: 0;
+    border: none;
+    -webkit-tap-highlight-color: transparent;
+    display: inline-block;
+    white-space: nowrap;
+    text-decoration: none;
+    vertical-align: baseline;
+    text-align: center;
+    margin: 0;
+    min-width: 0px;
+    padding: 0 16px;
+    border-radius: 2px;
+    overflow: visible;
+    &:hover,
+    &:active,
+    &:focus {
+      background-color: white;
+    }
+  }
+
+  img {
+    max-width: 128px;
+    max-height: 114px;
+  }
+}
+
+.resultImagens {
+  max-width: 230px;
+  max-height: 180px;
+  cursor: pointer;
+  margin: 5px;
+  border: 1px solid #999;
+  margin-bottom: 0px;
+  user-select: none;
+}
+
+.contentImagens {
+  display: inline-block;
+  text-align: left;
+  .numero {
+    margin-top: 0px;
+    display: block;
+    text-align: center;
+    border: 1px solid #999;
+    margin-right: 13px;
+    width: 180px;
+    margin-left: 5px;
+    margin-bottom: 12px;
+    user-select: none;
+  }
+}
+
+.action {
+  position: fixed;
+  bottom: 40px;
+  right: 25px;
+  padding: 20px;
+  background-color: rgba(#dedede, 0.8);
+  border: #fefefe 1px solid;
+  z-index: 5;
+  cursor: pointer;
+  border-radius: 36px;
+  user-select: none;
+}
+.button {
+  position: sticky;
+  top: 20px;
+  text-align: right;
+
+  button {
+    margin: 0 10px;
+  }
+
+  .button-action {
+    position: absolute;
+    left: 0;
+    top: -4px;
+  }
+}

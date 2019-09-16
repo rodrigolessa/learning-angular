@@ -1,0 +1,68 @@
+<div class="content">
+    <app-breadcumb [info]="breadcumbs" (actionClick)="acaoClicada($event)"></app-breadcumb>
+
+    <div class="table-container no-padding no-shadow">
+        <mat-form-field class="filter">
+            <input matInput #txtFiltro [(ngModel)]="busca.texto" (keyup.enter)="filtrarTribunais()" placeholder="Filtrar por nome" autocomplete="off">
+            <button mat-button *ngIf="busca.texto" matSuffix mat-icon-button aria-label="Limpar" (click)="limparBusca();">
+                <mat-icon>close</mat-icon>
+            </button>
+            <div matPrefix>
+                <mat-icon>search</mat-icon>
+            </div>
+        </mat-form-field>
+
+        <table mat-table [dataSource]="dataSource" matSort matSortActive="created" matSortDisableClear matSortDirection="asc" multiTemplateDataRows>
+            <ng-container matColumnDef="Nome">
+                <th mat-header-cell *matHeaderCellDef> Nome </th>
+                <td mat-cell *matCellDef="let element"> {{element.Nome}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Site">
+                <th mat-header-cell *matHeaderCellDef> Site </th>
+                <td mat-cell (click)="app.abirLink(element.Url)"  matTooltip="Acessar tribunal" matTooltipPosition="right" style="cursor: pointer;" *matCellDef="let element"> {{element.Url}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="IconeDetalhe">
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell class="detail-icon" [class.selecionado]="row.selecionado" *matCellDef="let row" (click)="row.selecionado = !row.selecionado">
+                    <mat-icon  matTooltip="Exibir parâmetros" matTooltipPosition="above" >chevron_right</mat-icon>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="expandedDetail">
+                <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
+                    <div [@detailExpand]="element.selecionado ? 'expanded' : 'collapsed'">
+                        <div class="table-container no-padding no-shadow">
+                            <table mat-table [dataSource]="element.detalhes" multiTemplateDataRows>
+                                
+                                <ng-container matColumnDef="Nome">
+                                    <th mat-header-cell *matHeaderCellDef> Tipo de Consulta </th>
+                                    <td (click)="app.abirLink(param.Url)"  matTooltip="Click para acessar o link" matTooltipPosition="above" style="cursor: pointer;" mat-cell *matCellDef="let param"> {{param.Nome}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="Descricao">
+                                    <th mat-header-cell *matHeaderCellDef> Descrição </th>
+                                    <td mat-cell *matCellDef="let param"> {{param.Descricao}} </td>
+                                </ng-container>
+                                <ng-container matColumnDef="Mascara">
+                                    <th mat-header-cell *matHeaderCellDef> Mascara </th>
+                                    <td mat-cell *matCellDef="let param"> {{param.Mascara}} </td>
+                                </ng-container>
+
+                                <tr mat-header-row *matHeaderRowDef="columnsToDisplayDetails"></tr>
+                                <tr mat-row *matRowDef="let param; columns: columnsToDisplayDetails;">
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+            <tr mat-row *matRowDef="let element; columns: columnsToDisplay;">
+            </tr>
+            <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detail" (click)=" remover(row)"></tr>
+        </table>
+        <mat-paginator showFirstLastButtons [pageSizeOptions]="[15,30,100,500]"></mat-paginator>
+    </div>
+</div>

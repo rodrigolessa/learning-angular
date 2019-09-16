@@ -1,0 +1,50 @@
+<div class="menu-wrapper" [ngClass]="{'expandir': menuExpandido}">
+    <div class="menu-item-wrapper" *ngFor="let menu of menus" [ngClass]="{'selecionado': menu.selecionado}">
+        <div class="menu-item">
+            <div (click)="menuSelecionado(menu)" [matTooltipDisabled]="menuExpandido || (!menu.selecionado && menu.subMenus.length > 0)"
+                [matTooltip]="menu.titulo" matTooltipPosition="right">
+                <div class="menu-item-icon">
+                    <mat-icon>{{menu.icone}}</mat-icon>
+                </div>
+                <div class="menu-item-text">{{menu.titulo}}</div>
+                <div class="menu-item-arrow" *ngIf="menu.subMenus.length > 0">
+                    <mat-icon>keyboard_arrow_right</mat-icon>
+                </div>
+            </div>
+
+            <div class="menu-sub-menu-fixo" *ngIf="menu.subMenus.length > 0 && menu.selecionado">
+                <div (click)="menuSelecionado(sub)" *ngFor="let sub of menu.subMenus" class="menu-sub-menu-fixo-item"
+                    [ngClass]="{'ativo': sub.ativo}" [matTooltipDisabled]="menuExpandido || !menu.selecionado"
+                    [matTooltip]="sub.titulo" matTooltipPosition="right">
+                    <div class="menu-sub-menu-fixo-item-icon">
+                        <mat-icon>{{sub.icone}}</mat-icon>
+                    </div>
+                    <div class="menu-sub-menu-fixo-item-text">{{sub.titulo}}</div>
+                </div>
+            </div>
+
+            <div class="menu-sub-menu" *ngIf="menu.subMenus.length > 0">
+                <div class="menu-sub-menu-titulo" *ngIf="!menuExpandido">
+                    {{menu.titulo}}
+                </div>
+
+                <div (click)="menuSelecionado(sub)" *ngFor="let sub of menu.subMenus" class="menu-sub-menu-item"
+                    [ngClass]="{'ativo': sub.ativo}" [matTooltipDisabled]="menuExpandido || !menu.selecionado"
+                    [matTooltip]="sub.titulo" matTooltipPosition="right">
+                    <div class="menu-sub-menu-item-icon">
+                        <mat-icon>{{sub.icone}}</mat-icon>
+                    </div>
+                    <div class="menu-sub-menu-item-text">{{sub.titulo}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="menu-item-min" [matTooltipDisabled]="menuExpandido" matTooltip="Mostrar mais informações"
+        matTooltipPosition="right">
+        <div class="menu-item-min-icon" (click)="expandirMenu()">
+            <mat-icon>chevron_right</mat-icon>
+            <mat-icon>chevron_right</mat-icon>
+        </div>
+    </div>
+</div>

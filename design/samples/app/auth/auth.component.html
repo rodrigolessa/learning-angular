@@ -1,0 +1,49 @@
+<div class="content">
+  <div class="divisor-top"></div>
+  <div class="divisor-bottom mat-elevation-z3"></div>
+  <div></div>
+  <div class="login-content">
+    <div class="login-logo">
+      <img src="../assets/logo-marca.png" />
+    </div>
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title style="font-weight: bold">Acesso à Intranet</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <form>
+          <table cellspacing="0">
+            <tr>
+              <td>
+                <mat-form-field>
+                  <input matInput [(ngModel)]="usuario" (keyup.enter)="btnPassword.focus()" name="usuario" placeholder="Digite seu usuário"
+                    required autocomplete="off">
+                </mat-form-field>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <mat-form-field>
+                  <input matInput type="password" #btnPassword (keyup.enter)="login()" [(ngModel)]="senha" name="senha" placeholder="Digite sua senha"
+                    required autocomplete="off">
+                </mat-form-field>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <mat-checkbox [(ngModel)]="lembrarUsuario" name="lembrarUsuario" [checked]="lembrarUsuario" color="primary">Lembrar usuário?</mat-checkbox>
+              </td>
+            </tr>
+          </table>
+        </form>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button (click)="login()" color="primary" [disabled]="loading">Login
+          <div class="loading-content" *ngIf="loading">
+            <mat-spinner  diameter="20"></mat-spinner>
+          </div>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

@@ -1,0 +1,82 @@
+
+
+.table-container[_ngcontent-c7]
+  .mat-table[_ngcontent-c7]
+  .mat-cell[_ngcontent-c7] {
+  max-width: 627px;
+}
+.table-container .mat-table .mat-header-cell {
+  padding-left: 0px;
+}
+
+.corStatus {
+  background-color: lightgray;
+}
+
+tr.red {
+  td {
+    color: rgba(2, 58, 19, 0.87);
+    font-weight: bold;
+  }
+}
+
+tr.black {
+  td {
+    color: black;
+  }
+}
+
+.cdk-column-Corpo {
+  max-width: 700px !important;
+  word-break: break-all;
+  min-width: 152px;
+}
+.cdk-column-Processo {
+  min-width: 173px;
+}
+
+.cdk-column-Dialog {
+  width: 20px;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.cdk-column-Status {
+  width: 20px;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.cdk-column-EnviarUsuario {
+  width: 20px;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.cdk-column-Trello {
+  width: 20px;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.cdk-column-IconeDetalhe {
+  width: 20px;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}

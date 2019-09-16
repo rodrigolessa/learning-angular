@@ -1,0 +1,144 @@
+<div class="app-header mat-elevation-z1">
+    <div class="header-nav">
+        <a class="header-nav-logo" [routerLink]="['/']">
+            <img class="logo-menu" alt="Intranet" src="../assets/logo.png">
+            <span>Intranet</span>
+        </a>
+        <div class="menu-final">
+            <div class="menu-final-item" click-outside (clickOutside)="exibirBuscaMenu = !$event.value; focarBusca();">
+                <div class="menu-final-item-menu busca" [ngClass]="{'selecionado-busca': exibirBuscaMenu}">
+                    <div>
+                        <input #txtBusca (keyup.enter)="exibirResultadoBuscaMenu = true" placeholder="Digite sua busca aqui..." type="text" />
+                        <mat-icon>search</mat-icon>
+                    </div>
+                </div>
+                <div class="menu-final-item-sub busca" click-outside (clickOutside)="exibirResultadoBuscaMenu = !$event.value" *ngIf="exibirResultadoBuscaMenu">
+                    <div class="menu-final-item-sub-resumo">
+                        <div class="menu-final-item-sub-resumo-titulo">
+                            <mat-tab-group class="busca-tab" (selectedTabChange)="selecionarTabBusca($event.index)">
+                                <mat-tab class="busca-tab" label="Processos">
+                                    <ng-template matTabContent>
+                                        <div *ngFor="let item of itensBusca">
+                                            <div class="menu-final-item-sub-item" (click)="irPara(item.link)">
+                                                <div class="menu-final-item-sub-item-icon">
+                                                    <mat-icon>public</mat-icon>
+                                                </div>
+                                                <div class="menu-final-item-sub-item-text">{{item.texto}}</div>
+                                            </div>
+                                            <div class="divider"></div>
+                                        </div>
+                                        <div class="menu-final-item-sub-item">
+                                            <div class="menu-final-item-sub-item-text">Ver mais resultados...</div>
+                                        </div>
+                                    </ng-template>
+                                </mat-tab>
+                                <mat-tab class="busca-tab" label="Envolvidos">
+                                    <ng-template matTabContent>
+                                        <div *ngFor="let item of itensBusca">
+                                            <div class="menu-final-item-sub-item" (click)="irPara(item.link)">
+                                                <div class="menu-final-item-sub-item-icon">
+                                                    <mat-icon>public</mat-icon>
+                                                </div>
+                                                <div class="menu-final-item-sub-item-text">{{item.texto}}</div>
+                                            </div>
+                                            <div class="divider"></div>
+                                        </div>
+                                        <div class="menu-final-item-sub-item">
+                                            <div class="menu-final-item-sub-item-text">Ver mais resultados...</div>
+                                        </div>
+                                    </ng-template>
+                                </mat-tab>
+                                <mat-tab class="busca-tab" label="Usuários">
+                                    <ng-template matTabContent>
+                                        <div *ngFor="let item of itensBusca">
+                                            <div class="menu-final-item-sub-item" (click)="irPara(item.link)">
+                                                <div class="menu-final-item-sub-item-icon">
+                                                    <mat-icon>public</mat-icon>
+                                                </div>
+                                                <div class="menu-final-item-sub-item-text">{{item.texto}}</div>
+                                            </div>
+                                            <div class="divider"></div>
+                                        </div>
+                                        <div class="menu-final-item-sub-item">
+                                            <div class="menu-final-item-sub-item-text">Ver mais resultados...</div>
+                                        </div>
+                                    </ng-template>
+                                </mat-tab>
+                            </mat-tab-group>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="menu-final-item" click-outside (clickOutside)="exibirNotificacaoMenu = !$event.value">
+                <div class="menu-final-item-menu" [ngClass]="{'selecionado': exibirNotificacaoMenu}">
+                    <div style="display: flex; align-self: center;">
+                        <mat-icon>notifications_active</mat-icon>
+                    </div>
+                </div>
+                <div class="menu-final-item-sub" *ngIf="exibirNotificacaoMenu">
+                    <div class="menu-final-item-sub-resumo">
+                        <div class="menu-final-item-sub-resumo-titulo">
+                            Notificações
+                        </div>
+                    </div>
+
+                    <div class="divider"></div>
+                    <div class="menu-final-item-sub-item">
+                        <div class="menu-final-item-sub-item-icon">
+                            <mat-icon>public</mat-icon>
+                        </div>
+                        <div class="menu-final-item-sub-item-text">Processo 82713009-2 sincronizado com sucesso!</div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="menu-final-item-sub-item">
+                        <div class="menu-final-item-sub-item-icon">
+                            <mat-icon>public</mat-icon>
+                        </div>
+                        <div class="menu-final-item-sub-item-text">Processo 09828399-7 falhou na sincronização!</div>
+                    </div>
+                </div>
+            </div>
+            <div class="menu-final-item" click-outside (clickOutside)="exibirUsuarioMenu = !$event.value">
+                <div class="menu-final-item-menu" [ngClass]="{'selecionado': exibirUsuarioMenu}">
+                    <div class="user-img" [style.background-image]="'url(../assets/colaborador/' + app.colaborador?.fotoUrl + ')'">
+                    </div>
+                </div>
+                <div class="menu-final-item-sub" *ngIf="exibirUsuarioMenu">
+                    <div class="menu-final-item-sub-resumo">
+                        <div class="menu-final-item-sub-resumo-img">
+                            <div class="user-img" [style.background-image]="'url(../assets/colaborador/' + app.colaborador?.fotoUrl + ')'">
+                            </div>
+                        </div>
+                        <div class="menu-final-item-sub-resumo-text">
+                            <div>
+                                {{app.colaborador?.nome}}
+                            </div>
+                            <div>
+                                {{app.colaborador?.email}}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-final-item-sub-item">
+                        <div class="menu-final-item-sub-item-icon">
+                            <mat-icon>account_box</mat-icon>
+                        </div>
+                        <div class="menu-final-item-sub-item-text">Meu Perfil</div>
+                    </div>
+                    <div class="menu-final-item-sub-item">
+                        <div class="menu-final-item-sub-item-icon">
+                            <mat-icon>settings</mat-icon>
+                        </div>
+                        <div class="menu-final-item-sub-item-text">Configuração</div>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="menu-final-item-sub-item" (click)="apagarToken()">
+                        <div class="menu-final-item-sub-item-icon">
+                            <mat-icon>exit_to_app</mat-icon>
+                        </div>
+                        <div class="menu-final-item-sub-item-text">Sair</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

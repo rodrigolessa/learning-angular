@@ -1,0 +1,23 @@
+<div class="title-page">
+    {{info.titulo}}
+    <div class="navegation-page">
+        <span *ngFor="let pag of info.paginas" [ngClass]="{'navegation-root': !pag.atual && !pag.divisor, 'navegation-arrow': pag.divisor, 'navegation-actual': pag.atual}">
+            <span *ngIf="!pag.divisor" [routerLink]="[pag.link]">{{pag.titulo}}</span>
+            <span *ngIf="pag.divisor">
+                <mat-icon>chevron_right</mat-icon>
+            </span>
+        </span>
+
+        <div class="navegation-actions" *ngIf="info.acoes != null && info.acoes.length > 0">
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+                <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="enviarEvento(ac.codigo)" *ngFor="let ac of info.acoes">
+                    <mat-icon>{{ac.icone}}</mat-icon>
+                    <span>{{ac.titulo}}</span>
+                </button>
+            </mat-menu>
+        </div>
+    </div>
+</div>

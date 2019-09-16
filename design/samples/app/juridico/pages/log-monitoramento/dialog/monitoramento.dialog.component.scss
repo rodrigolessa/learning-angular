@@ -1,0 +1,22 @@
+.content {
+  position: relative;
+  width: 1000px;
+  height: auto;
+
+  button {
+    float: right;
+    margin-left: 5px;
+  }
+
+  mat-form-field {
+    margin-right: 15px;
+  }
+
+  .close {
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 9999;
+    cursor: pointer;
+  }
+}

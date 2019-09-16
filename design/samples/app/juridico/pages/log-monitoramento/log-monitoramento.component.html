@@ -1,0 +1,176 @@
+<div class="content">
+    <app-breadcumb [info]="breadcumbs"></app-breadcumb>
+
+    <div class="table-container no-padding no-shadow">
+        <mat-form-field class="filter">
+            <input matInput #txtFiltro [(ngModel)]="busca.texto"  (keyup.enter)="filtroMonitoramentoLog()"placeholder="Filtrar por descrição, processo, data, usuário ou tribunal" autocomplete="off">
+            <button mat-button *ngIf="busca.texto || busca.Situacao" matSuffix mat-icon-button aria-label="Limpar" (click)="limparBusca();">
+                <mat-icon>close</mat-icon>
+            </button>
+            <div matPrefix>
+                <mat-icon>search</mat-icon>
+            </div>
+        </mat-form-field>
+
+        <mat-checkbox  [(ngModel)]="exibirResolvidos" [value]="exibirResolvidos" (change)="caixaDeFiltros()" color="primary">Exebir somente notificados</mat-checkbox>
+        <mat-checkbox style="margin-left: 10px;" [(ngModel)]="exibirPublicadosApol" [value]="exibirPublicadosApol" (change)="caixaDeFiltros()" color="primary">Exibir somente publicados no Apol</mat-checkbox>
+        <span>&nbsp;</span>
+        <span>&nbsp;</span>
+        <mat-form-field>
+            <mat-select [(ngModel)]="busca.Situacao" (selectionChange)="caixaDeFiltros($event)" placeholder="Situação">
+                <mat-option *ngFor="let sl of dataSourceSituacaoLog" [value]="sl.Codigo">{{sl.Descricao}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <span>&nbsp;</span>
+        <button mat-button (click)="comunicarClientePorEmail()">
+            <mat-icon matTooltip="Comunicar ao cliente por e-mail">mail_outline</mat-icon>
+            Comunicar ao cliente por e-mail!
+        </button>
+
+        <table mat-table [dataSource]="dataSourceLogMonitoramento" matSort matSortActive="created" matSortDisableClear matSortDirection="asc"
+            multiTemplateDataRows>
+
+            <ng-container  matColumnDef="Processo">
+                <th mat-header-cell *matHeaderCellDef>Processo</th>
+                <td  mat-cell *matCellDef="let element">{{element.NumeroDoProcesso}}</td>
+            </ng-container>
+
+            <ng-container  matColumnDef="SiglaDoTribunal">
+                <th mat-header-cell *matHeaderCellDef>Tribunal / Tipo de Consulta</th>
+                <td  mat-cell *matCellDef="let element">{{element.TipoDeConsultaAtual}}</td>
+            </ng-container>
+
+            <ng-container  matColumnDef="TipoDeConsulta">
+                <th mat-header-cell *matHeaderCellDef>Tipo de Consulta</th>
+                <td  mat-cell *matCellDef="let element">{{element.TipoDeConsulta}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="IdMonitoramento">
+                <th mat-header-cell *matHeaderCellDef>Id Monitoramento</th>
+                <td   mat-cell *matCellDef="let element">{{element.IdMonitoramento}}</td>
+            </ng-container>
+
+            <ng-container  matColumnDef="Usuario">
+                <th mat-header-cell *matHeaderCellDef>ApiKey / Usuário</th>
+                <td  mat-cell *matCellDef="let element">{{element.ApiKey}} <br> {{element.Usuario}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="Empresa">
+                <th mat-header-cell *matHeaderCellDef>Cliente</th>
+                <td   mat-cell *matCellDef="let element">{{element.Empresa}}</td>
+            </ng-container>
+
+            <ng-container  matColumnDef="Tribunal">
+                <th mat-header-cell *matHeaderCellDef>Tribunal</th>
+                <td (click)="app.abirLink(element.UrlTribunal)"  matTooltip="Click para acessar o link" matTooltipPosition="above" style="cursor: pointer;" mat-cell *matCellDef="let element"> {{element.TribunalProcesso}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Data">
+                <th mat-header-cell *matHeaderCellDef>Data</th>
+                <td  mat-cell *matCellDef="let element">{{element.Data | date:'dd/MM/yyyy HH:mm:ss'}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="UltimaExecucaoComSucessoNaBipbop">
+                <th mat-header-cell *matHeaderCellDef>Última execução com sucesso</th>
+                <td  mat-cell *matCellDef="let element">{{element.UltimaExecucaoComSucessoNaBipbop | date:'dd/MM/yyyy HH:mm:ss'}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="Codigo">
+                <th mat-header-cell *matHeaderCellDef>Código</th>
+                <td  mat-cell *matCellDef="let element">*200{{element.Codigo}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="Corpo">
+                <th mat-header-cell *matHeaderCellDef>Descrição</th>
+                <td  mat-cell *matCellDef="let element">{{element.Descricao}}</td>
+            </ng-container>
+            
+            <ng-container matColumnDef="Dialog">
+                <th  mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let element">
+                    <mat-icon style="cursor: pointer;  color: rgba(0, 0, 0, 0.87);" (click)="abirDialog(element)" matTooltip="Consultar/Agendar processo" matTooltipPosition="above">refresh</mat-icon>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Resolvido">
+                <th  mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let element">
+                    <mat-icon *ngIf="!element.Resolvido" matTooltip="Avisar cliente"  matTooltipPosition="above" style="cursor: pointer; color:rgba(0, 0, 0, 0.87);" (click)="marcarComoResolvidoDialog(element)">done</mat-icon>
+                    <mat-icon *ngIf="element.Resolvido" matTooltip="Cliente avisado" matTooltipPosition="above">done_all</mat-icon>
+                </td>
+            </ng-container>    
+                   
+            <ng-container matColumnDef="EnviarUsuario">
+                <th  mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let element">
+                    <mat-icon *ngIf="!element.PublicadoNoApol" style="cursor: pointer; color:rgba(0, 0, 0, 0.87);" matTooltip="Enviar alerta ao usuário" matTooltipPosition="above" (click)="adicionarPublicacaoMonitoramentoLogDialog(element)" >person_outline</mat-icon>
+                    <mat-icon *ngIf="element.PublicadoNoApol" style="color:rgba(2, 58, 19, 0.87);" matTooltip="Alerta enviado" matTooltipPosition="above"  >how_to_reg</mat-icon>
+                </td>
+            </ng-container>           
+
+            <ng-container matColumnDef="Trello">
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let element" >
+                    <img *ngIf="!element.Notificado"  (click)="adicionarCartaoTrelloDialog(element)" style="cursor: pointer;" matTooltip="Enviar card para o Trello" matTooltipPosition="above" src="../assets/trello.png" width="24px" height="24px"  >
+                    <img *ngIf="element.Notificado"   matTooltip="Card enviardo para o Trello" matTooltipPosition="above" src="../assets/trello2.png" width="24px" height="24px" >
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Manter">
+                <th  mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let element">
+                    <mat-icon style="cursor: pointer;  color: rgba(0, 0, 0, 0.87);" (click)="abirManter(element)" matTooltip="Editar Log" matTooltipPosition="above">edit</mat-icon>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="IconeDetalhe">
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell class="detail-icon" style="color:rgba(34, 24, 24, 0.87);" [class.selecionado]="row.selecionado" *matCellDef="let row" (click)="row.selecionado = !row.selecionado">
+                    <mat-icon matTooltip="Exibir detalhe" matTooltipPosition="above">chevron_right</mat-icon>
+                </td>
+            </ng-container>
+    
+            <ng-container matColumnDef="expandedDetail">
+                <td mat-cell *matCellDef="let row" [attr.colspan]="columnsToDisplay.length">
+                    <div [@detailExpand]="row.selecionado ? 'expanded' : 'collapsed'">
+                        <div class="title" *ngIf="row.Descricao !== null && row.Descricao !== ''">Descrição do Erro</div>
+                        <div>{{row.Descricao}}</div>
+                        <div class="title" *ngIf="row.Corpo !== null && row.Corpo !== ''">Corpo do Erro</div>
+                        <div>{{row.Corpo}}</div>
+                        <div class="title" *ngIf="row.Consulta !== null && row.Consulta !== ''">Consulta</div>
+                        <div>{{row.Consulta}}</div>
+                        <div class="title" *ngIf="row.SiglaDoTribunalAtual !== null && row.SiglaDoTribunalAtual !== ''">Sigla Do Tribunal Atual</div>
+                        <div>{{row.SiglaDoTribunalAtual}} ({{row.UrlDoTribunal}})</div>
+                        <div class="title" *ngIf="row.TipoDeConsultaOficial !== null && row.TipoDeConsultaOficial !== ''">TipoDeConsultaOficial</div>
+                        <div>{{row.TipoDeConsultaOficial}}</div>
+                        <div class="title" *ngIf="row.Parametros !== null && row.Parametros !== ''">Parâmetros</div>
+                        <div>{{row.Parametros}}</div>
+                        <div class="title">Habilita Sincronização</div>
+                        <div>{{row.HabilitaSincronizacao ? "Sim" : "Não"}}</div>
+                        <div class="title">Houve sincronização?</div>
+                        <div>{{row.HouveSincronizacao == 0 ? "Não" : "Sim"}}</div>
+                        <div class="title">Houve sincronização na Snap?</div>
+                        <div>{{row.HouveSincronizacaoSnap == 0 ? "Não" : "Sim"}}</div>
+                        <div class="title">Quantidade de andamentos</div>
+                        <div>{{row.QtdAndamentos}}</div>
+                        <div class="title">Id do Processo</div>
+                        <div>{{row.IdProcesso}}</div>
+                        <p>
+                            <button mat-raised-button color="primary" (click)="abirManter(row)">Editar Log</button>
+                            <button mat-raised-button color="primary" (click)="exibirAndamentos(row)" *ngIf="row.QtdAndamentos > 0">Exibir andamentos recentes</button>
+                            <button mat-raised-button color="primary" (click)="downloadXmlDeProcessos(row)">Exibir arquivos XML recentes</button>
+                            <button mat-raised-button color="primary" (click)="exibirEmails(row)">{{row.QtdDeEmailsEnviados}} e-mails enviados</button>
+                        </p>
+                    </div>
+                </td>
+            </ng-container>
+
+            <tr  mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+            <tr [ngClass]="element.Resolvido? 'red' : 'black'" mat-row *matRowDef="let element; columns: columnsToDisplay;">
+            </tr>
+            <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detail"></tr>
+        </table>
+        <mat-paginator [length]="quantidadeRegistros" showFirstLastButtons [pageSizeOptions]="[15,30,100,500]"></mat-paginator>
+    </div>
+
+</div>

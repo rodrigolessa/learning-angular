@@ -1,0 +1,89 @@
+.mat-elevation-z8 {
+  width: 150px;
+  margin-left: 40px;
+  margin-top: 10px;
+}
+.monitoramentoSemPush {
+  // background-color: rgb(59, 164, 250);
+  color: rgb(245, 9, 9);
+  font-size: 50px;
+  font-weight: bold;
+  font-family: "Verdana, Geneva, Tahoma, sans-serif";
+}
+.texto {
+  font-family: "Verdana, Geneva, Tahoma, sans-serif";
+  font-weight: bold;
+}
+.content {
+  background: #eeeeee !important;
+  padding: 22px;
+  min-height: calc(100vh - 146px);
+}
+
+.space-dashboard {
+  display: inline-block;
+  margin: 5px;
+}
+
+.break-dashboard {
+  display: block;
+}
+
+app-chart {
+  vertical-align: top;
+  width: calc(50% - 20px);
+  margin: 10px;
+}
+
+[sw] {
+  width: calc(25% - 20px) !important;
+}
+
+[mw] {
+  width: calc(50% - 20px) !important;
+}
+
+[lw] {
+  width: calc(75% - 20px) !important;
+}
+
+[xw] {
+  width: calc(100% - 20px) !important;
+}
+
+[lh] {
+  height: 430px !important;
+}
+
+[mh] {
+  height: 280px !important;
+}
+
+[sh] {
+  height: 130px !important;
+}
+
+.row {
+  display: inline-block;
+  vertical-align: top;
+
+  &[sw] {
+    width: 25% !important;
+  }
+
+  &[mw] {
+    width: 50% !important;
+  }
+
+  &[lw] {
+    width: 75% !important;
+  }
+
+  &[xw] {
+    width: 100% !important;
+  }  
+}
+
+.row:empty {
+  width: 0 !important;
+}

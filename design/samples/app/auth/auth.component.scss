@@ -1,0 +1,111 @@
+.content {
+  z-index: 9;
+  background-color: #fefefe;
+  margin-top: -52px;
+  height: calc(100% - 12px);
+  font-family: Roboto,"Helvetica Neue",sans-serif;
+}
+
+.divisor-top {
+  position: fixed;
+  opacity: 0;
+  left: 0;
+  top: 0;
+  height: 0vh;
+  width: 100vw;
+  background-color: #eeeeee;
+  // animation: descer-divisor 1s ease-out forwards;
+}
+
+.divisor-bottom {
+  position: fixed;
+  opacity: 1;
+  left: 0;
+  bottom: 0;
+  height: 0;
+  width: 100vw;
+  background-color: white;
+  animation: subir-divisor 1s 0.5s ease-out forwards;
+}
+
+.login-content {
+  opacity: 0;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, calc(-50% - 20px));
+  text-align: right;
+  animation: centraliza-login 0.5s 1s ease-out forwards;
+
+  .login-logo {
+    img {
+      // background-color: rgba(#dedede, 0.8);
+      padding: 5px;
+      height: 30px;
+    }
+  }
+}
+
+.loading-content {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 5px;
+}
+
+.mat-spinner > * {
+  fill: white !important;
+  stroke: white !important;
+}
+
+mat-card {
+  width: 400px;
+  height: 250px;
+
+  mat-card-header {
+    border-bottom: 1px solid #dedede;
+    margin-bottom: 10px;
+  }
+
+  mat-card-actions {
+    text-align: right;
+    margin: 0;
+  }
+
+  table {
+    width: 100%;
+  }
+
+  mat-form-field {
+    width: 100%;
+  }
+}
+
+@keyframes centraliza-login {
+  0% {
+    top: 0;
+    opacity: 0;
+  }
+  100% {
+    top: 50%;
+    opacity: 1;
+  }
+}
+@keyframes descer-divisor {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    height: 50vh;
+  }
+}
+@keyframes subir-divisor {
+  0% {
+    opacity: 1;
+    height: 0vh;
+  }
+  100% {
+    opacity: 1;
+    height: 50vh;
+  }
+}

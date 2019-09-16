@@ -1,0 +1,79 @@
+<div class="content">
+    <div class="close" (click)="fecharDialog()">
+        <mat-icon>close</mat-icon>
+    </div>
+
+    <mat-vertical-stepper>
+        <mat-step>
+            <ng-template matStepLabel>Verifique as informações</ng-template>
+            <mat-form-field>
+                <mat-label>Tribunal</mat-label>
+                <mat-select disabled>
+                    <mat-option value="tribunal">Tribunal</mat-option>
+                    <!-- <mat-option *ngFor="let tribunal of dataSourceTribunais" [value]="tribunal">{{tribunal.Sigla}}</mat-option> -->
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field >
+                <mat-label>Tipo de número</mat-label>
+                <mat-select  disabled value = "CNJ">
+                    <mat-option value="CNJ">CNJ</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+                <input matInput type="text" placeholder="Número do processo" [(ngModel)]="busca.processo">
+            </mat-form-field>
+           
+            <div>  
+                <button mat-raised-button matStepperNext color="primary" (click)="validarNumeracaoUnica()">Consultar</button>
+                <button mat-raised-button color="primary" (click)="agendarProcesso(data)" >Agendar</button>
+            </div>
+            
+        </mat-step>
+        <mat-step>
+            <ng-template matStepLabel>Resultado</ng-template>
+            <div *ngIf="!exibirProcesso">{{msgBusca}}</div>
+            <div *ngIf="exibirProcesso" style="margin-bottom: 15px;">
+                <div class="table-container no-padding no-shadow">
+                    <table mat-table [dataSource]="dataSouceProcesso" matSort matSortActive="created" matSortDisableClear matSortDirection="asc">
+
+                        <ng-container matColumnDef="Instancia">
+                            <th mat-header-cell *matHeaderCellDef>Instância</th>
+                            <td mat-cell *matCellDef="let row">{{row.Instancia}}</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="Processo">
+                            <th mat-header-cell *matHeaderCellDef>Processo</th>
+                            <td mat-cell *matCellDef="let row">{{row.Processo}}</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="TipoDeConsulta">
+                            <th mat-header-cell *matHeaderCellDef>Tipo de Consulta</th>
+                            <td mat-cell *matCellDef="let row">{{row.TipoDeConsulta}}</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="DescricaoDoTribunal">
+                            <th mat-header-cell *matHeaderCellDef>Descricao do Tribunal</th>
+                            <td mat-cell *matCellDef="let row">{{row.DescricaoDoTribunal}}</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="Juiz">
+                            <th mat-header-cell *matHeaderCellDef>Juiz</th>
+                            <td mat-cell *matCellDef="let row">{{row.Juiz}}</td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="Url">
+                            <th mat-header-cell *matHeaderCellDef>Site</th>
+                            <td mat-cell style="cursor: pointer;" (click)="abrirLink(row.Url)" *matCellDef="let row">{{row.Url}}</td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+                        <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+                    </table>
+                </div>
+            </div>
+            <div>
+                <button mat-raised-button color="primary" mat-button matStepperPrevious>Voltar</button>
+            </div>
+        </mat-step>
+    </mat-vertical-stepper>
+</div>

@@ -1,0 +1,52 @@
+<div class="content">
+    <app-breadcumb [info]="breadcumbs"></app-breadcumb>
+
+    <div class="table-container no-padding no-shadow">
+        <mat-form-field class="filter">
+            <input matInput #txtFiltro [(ngModel)]="busca.texto" (keyup.enter)="filtrarObterPushSemMonitoramento()" placeholder="Filtrar por número do processo" autocomplete="off">
+            <button mat-button *ngIf="busca.texto" matSuffix mat-icon-button aria-label="Limpar" (click)="limparBusca()">
+                <mat-icon>close</mat-icon>
+            </button>
+            <div matPrefix>
+                <mat-icon>search</mat-icon>
+            </div>
+        </mat-form-field>
+
+        <table mat-table [dataSource]="dataSource" matSort matSortActive="created" matSortDisableClear matSortDirection="asc">
+
+            <ng-container matColumnDef="IdMonitoramento">
+                <th mat-header-cell *matHeaderCellDef>ID</th>
+                <td mat-cell *matCellDef="let row">{{row.IdMonitoramento}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="Processo">
+                <th mat-header-cell *matHeaderCellDef>Proceso</th>
+                <td mat-cell *matCellDef="let row">{{row.NumeroDoProcesso}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="Usuario">
+                <th mat-header-cell *matHeaderCellDef>Usuário</th>
+                <td mat-cell *matCellDef="let row">{{row.NomeDoUsuario}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="Criacao">
+                <th mat-header-cell *matHeaderCellDef>Criação</th>
+                <td mat-cell *matCellDef="let row">{{row.DataDeCriacao | date:'dd/MM/yyyy HH:mm:ss'}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="Excluir">
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell class="detail-icon" *matCellDef="let row">
+                    <mat-icon matTooltip="Remover do monitoramento" (click)="openDialog(row)" matTooltipPosition="above">delete</mat-icon>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+            <tr [matTooltipDisabled]="!element.NaoMonitoradoBipBop" matTooltip="Monitoramento não sinconizado com a BipBop!" matTooltipPosition="above" [ngClass]="element.NaoMonitoradoBipBop ? 'red'  : 'black'" mat-row *matRowDef="let element; columns: columnsToDisplay;">
+                </tr>
+        </table>
+
+        <mat-paginator [length]="quantidadeRegistros" showFirstLastButtons [pageSizeOptions]="[15,30,100,500]"></mat-paginator>
+    </div>
+
+</div>

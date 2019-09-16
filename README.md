@@ -83,6 +83,20 @@ ng generate component obra-listar
 ng generate component obra-manter
 ```
 
+Creating shared components
+```shel
+ng generate module shared
+cd shared
+ng generate component side-menu
+ng generate component header
+ng generate component alert
+ng generate component dialog
+ng generate component footer
+ng generate component breadcrumb
+ng generate component chart
+ng generate directive click-out
+```
+
 ?
 ng generate class Hero
 ng new angular-forms

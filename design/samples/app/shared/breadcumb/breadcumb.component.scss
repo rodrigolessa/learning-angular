@@ -1,0 +1,37 @@
+.navegation-page {
+    position: relative;
+    user-select: none;
+    padding-left: 1px;
+    margin-top: 5px;
+    vertical-align: middle;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 8px;
+    .navegation-root {
+        color: #0776a4;
+        cursor: pointer;
+    }
+    .navegation-arrow {
+        padding: 0 10px;
+        mat-icon {
+            font-size: 12px;
+            height: 12px;
+            width: 12px;
+            vertical-align: sub;
+        }
+    }
+    .navegation-actual {
+        color: black;
+        cursor: pointer;
+    }
+    .navegation-actions {
+        position: absolute;
+        top: 50%;
+        right: 0;
+        transform: translate(0, -50%);
+        span {
+            font-size: 12px;
+            font-weight: initial;
+        }
+    }
+}

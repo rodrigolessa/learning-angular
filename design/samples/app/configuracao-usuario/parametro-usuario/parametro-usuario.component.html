@@ -1,0 +1,40 @@
+<div class="content">
+  <app-breadcumb [info]="breadcumbs"></app-breadcumb>
+
+  <div>
+    <mat-form-field style="margin-right: 10px;">
+      <mat-label>Setor</mat-label>
+      <mat-select required>
+        <mat-option value="option1">Desenvolvimento</mat-option>
+      </mat-select>
+  </mat-form-field>
+
+    <mat-form-field style="margin-right: 10px;">
+      <mat-label>Usuários</mat-label>
+      <mat-select required>
+        <mat-option value="option1">Rafael</mat-option>
+        <mat-option value="option2">Rodrigo</mat-option>
+        <mat-option value="option3">Willimas</mat-option>
+      </mat-select>
+  </mat-form-field>
+
+    <mat-form-field >
+      <mat-label>Função</mat-label>
+      <mat-select required>
+        <mat-option value="option1">Gerente</mat-option>
+        <mat-option value="option2">Funcionário</mat-option>
+        <mat-option value="option3">Lider</mat-option>
+      </mat-select>
+  </mat-form-field>
+
+  </div>
+<div class="radioButton">
+  <p>Selecione um perfil para este usuário:</p>
+  <mat-radio-group >
+      <mat-radio-button color="primary" value="1">Nivel 1</mat-radio-button>
+      <mat-radio-button color="primary" value="2">Nivel 2</mat-radio-button>
+      <mat-radio-button color="primary" value="3">Nivel 3</mat-radio-button>
+    </mat-radio-group>
+</div>
+
+</div>

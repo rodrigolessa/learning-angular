@@ -1,0 +1,15 @@
+<div class="card"> 
+<h1 mat-dialog-title>{{data.mensagem}}</h1>
+
+<mat-form-field class="example-full-width">
+  <textarea [(ngModel)]="descricao" style="height: 110px;"  matInput  placeholder="Descrição do card">
+{{data.Descricao}}
+  </textarea>
+  
+</mat-form-field>
+
+<div style="text-align: right;">
+  <button mat-raised-button mat-dialog-close cdkFocusInitia>Cancelar</button>
+  <button mat-raised-button (click)="onCloseConfirm()" color="primary">Gravar</button>
+</div>
+</div>

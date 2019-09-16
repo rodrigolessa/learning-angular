@@ -1,0 +1,37 @@
+<div class="content">
+  <app-breadcumb [info]="breadcumbs" (actionClick)="acaoClicada($event)"></app-breadcumb>
+
+<div >
+  <div class="button">
+    <div class="button-action">
+      <mat-icon matTooltip="Última ação 'Salvar' " matTooltipPosition="above" *ngIf="exibirAlert === 'salvar'" style="color: rgb(85, 138, 7); font-size: 45px;">done</mat-icon>
+      <mat-icon matTooltip="Última ação 'Excluir todos' " matTooltipPosition="above" *ngIf="exibirAlert === 'excluirTodos'" style="color: red; font-size: 45px;">error</mat-icon>
+      <mat-icon matTooltip="Última ação 'Desfazer' " matTooltipPosition="above" *ngIf="exibirAlert === 'desfazer'" style="font-size: 45px;">replay</mat-icon>
+    </div>
+
+    <button mat-raised-button #btnSalvar (click)="salvar()">Salvar</button>
+    <button mat-raised-button #btnSalvar color="warn" (click)="excluirTodos()">Excluir todos</button>
+  </div>
+  <div style="margin: auto; text-align: center;">
+    <div class="cardImagem2">
+      <div style="margin: 5px;">
+       <!-- <img [src]="'https://sistemas.ldsoft.com.br/servidor/figurativa/imagens/' + imagens + '.PNG'" />-->
+      </div>
+    </div>
+
+    <div>
+      <div class="contentImagens" *ngFor="let imagem of imagemProcesso.imagens">
+        <div>
+          <img class="resultImagens" width="180px" height="230px" (click)="removerImagem(imagem)" [src]="'https://sistemas.ldsoft.com.br/servidor/figurativa/imagens/' + imagem + '.PNG'"
+          />
+          <div class="numero">{{imagem}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="imagemExcluida.length > 0" class="action mat-elevation-z2" (click)="desfazerImagem()">
+    <mat-icon>replay</mat-icon>
+  </div>
+</div>
+</div>

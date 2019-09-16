@@ -1,0 +1,41 @@
+<div class="content">
+    <app-breadcumb [info]="breadcumbs"></app-breadcumb>
+
+    <div class="table-container no-padding no-shadow">
+        <mat-form-field class="filter">
+            <input matInput #txtFiltro [(ngModel)]="busca.texto"  (keyup.enter)="obterConsoleLog()"placeholder="Filtrar por descrição, processo, data, usuário ou tribunal" autocomplete="off">
+            <button mat-button *ngIf="busca.texto" matSuffix mat-icon-button aria-label="Limpar" (click)="limparBusca();">
+                <mat-icon>close</mat-icon>
+            </button>
+            <div matPrefix>
+                <mat-icon>search</mat-icon>
+            </div>
+        </mat-form-field>
+
+        <table mat-table [dataSource]="dataSourceConsoleLog" matSort matSortActive="created" matSortDisableClear matSortDirection="asc"
+            multiTemplateDataRows>
+
+            <ng-container matColumnDef="Data">
+                <th mat-header-cell *matHeaderCellDef>Data</th>
+                <td  mat-cell *matCellDef="let element">{{element.Data | date:'dd/MM/yyyy HH:mm:ss'}}</td>
+            </ng-container>
+
+            <ng-container  matColumnDef="Descricao">
+                <th mat-header-cell *matHeaderCellDef>Descrição</th>
+                <td  mat-cell *matCellDef="let element">{{element.Descricao}}</td>
+            </ng-container>         
+
+            <ng-container matColumnDef="Excluir">
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell class="detail-icon" *matCellDef="let row">
+                    <mat-icon matTooltip="Remover do log" (click)="openDialog(row)" matTooltipPosition="above">delete</mat-icon>
+                </td>
+            </ng-container>
+            
+            <tr  mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+            <tr [ngClass]="element.Resolvido? 'red' : 'black'" mat-row *matRowDef="let element; columns: columnsToDisplay;"></tr>
+        </table>
+        <mat-paginator [length]="quantidadeRegistros" showFirstLastButtons [pageSizeOptions]="[15,30,100,500]"></mat-paginator>
+    </div>
+
+</div>

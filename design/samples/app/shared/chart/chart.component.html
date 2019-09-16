@@ -1,0 +1,53 @@
+<div class="content mat-elevation-z1">
+    <div class="chart-close">
+        <div style="display:inline;" *ngIf="dataset.contatos">
+           <!-- <mat-icon *ngIf="!dataset.pesquisar" (click)="dataset.pesquisar = true">search</mat-icon>-->
+
+            <mat-form-field *ngIf="dataset.pesquisar" class="example-form-field">
+                <input matInput type="text" placeholder="Clearable input" [(ngModel)]="value">
+
+            </mat-form-field>
+
+        </div>
+        <mat-icon (click)="atualizar(this)">refresh</mat-icon>
+        <mat-icon (click)="fechar()">close</mat-icon>
+    </div>
+
+    <div *ngIf="dataset.loading" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, calc(-50% - 10px));">
+        <mat-spinner diameter="30"></mat-spinner>
+    </div>
+
+    <div class="chart-list" *ngIf="dataset.contatos || dataset.aniversariantes || dataset.atividade">
+        <div style="font-weight: bold" class="chart-title">{{dataset.titulo}}</div>
+    </div>
+
+    <div style="max-height: 100%; height: calc(100% - 20px);" *ngIf="!dataset.contatos && !dataset.aniversariantes && !dataset.atividade">
+        <canvas #dataCanvas [hidden]="dataChart == null || dataChart.length == 0"></canvas>
+
+        <div class="chart-content" [style.color]="verificarCor()" *ngIf="dataset.corpo != null && dataset.corpo != '' && !dataset.atividade">
+            {{dataset.corpo}}
+        </div>
+    </div>
+
+    <div class="contentCard" *ngIf="dataset.contatos || dataset.aniversariantes">
+        <div class="listaColaboradores" *ngFor="let colaborador of dataset.corpo">
+            <div mat-card-avatar class="header-image" [style.background-image]="'url('+ colaborador.fotoUrl + ')'"></div>
+            <div class="conteudoColaboradores">
+                <div>{{colaborador.nome}}</div>
+                <i *ngIf="dataset.contatos">Ramal: <div style="display: inline; font-weight: bold;">{{colaborador.ramal}}</div></i>
+                <i *ngIf="dataset.aniversariantes">Data: <div style="display: inline; font-weight: bold;">{{colaborador.dataAniversario
+                        | date:'dd/MM' }}</div></i>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="!dataset.contatos && !dataset.aniversariantes && !dataset.atividade" class="chart-header">
+        <div class="chart-title">{{dataset.titulo}}</div>
+    </div>
+
+    <div *ngIf="dataset.atividade" class="atividades">
+        <ul *ngFor="let atividade of dataset.corpo">
+            <li>{{atividade.dataInicio | date: 'dd/MM/yy HH:mm'}} - <span> {{atividade.nome}}</span></li>
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,70 @@
+<div class="content">
+    <div class="close" (click)="fecharDialog()">
+        <mat-icon>close</mat-icon>
+    </div>
+    
+    <mat-form-field>
+        <mat-label>Tribunal</mat-label>
+        <mat-select [value]="busca.SiglaDoTribunal" [(ngModel)]="busca.SiglaDoTribunal">
+            <mat-option value="">Tribunal</mat-option>
+            <mat-option *ngFor="let tribunal of dataSourceTribunais" [value]="tribunal.Sigla">{{tribunal.Sigla}}</mat-option>
+        </mat-select>
+        <mat-icon matSuffix>gavel</mat-icon>
+        <mat-hint>Sigla correta</mat-hint>
+    </mat-form-field>
+    <mat-form-field >
+        <mat-label>Tipo de consulta</mat-label>
+        <input matInput  type="text" placeholder="Sigla" [(ngModel)]="busca.TipoDeConsulta">
+        <mat-icon matSuffix>search</mat-icon>
+        <mat-hint>Sigla do Tipo de Consulta correta</mat-hint>
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput type="text" placeholder="Número do processo" [(ngModel)]="busca.NumeroDoProcesso">
+    </mat-form-field>
+
+    <p>
+        <mat-form-field appearance="legacy">
+            <mat-label>Seção</mat-label>
+            <input matInput placeholder="Texto livre" [(ngModel)]="busca.Secao">
+            <mat-icon matSuffix>format_quote</mat-icon>
+            <mat-hint>Valor oficial corrigido</mat-hint>
+        </mat-form-field>
+        <mat-form-field appearance="legacy">
+            <mat-label>Comarca</mat-label>
+            <input matInput placeholder="Texto livre" [(ngModel)]="busca.Comarca">
+            <mat-icon matSuffix>format_quote</mat-icon>
+            <mat-hint>Valor oficial corrigido</mat-hint>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>&nbsp;</mat-label>
+            <mat-select [value]="busca.Situacao" [(ngModel)]="busca.Situacao">
+                <mat-option value="">Situação</mat-option>
+                <mat-option *ngFor="let sl of dataSourceSituacaoLog" [value]="sl.Codigo">{{sl.Descricao}}</mat-option>
+            </mat-select>
+            <mat-icon matSuffix>tag_faces</mat-icon>
+            <mat-hint>Situação para controle do erro</mat-hint>
+        </mat-form-field>
+    </p>
+
+    <p>
+        <mat-form-field appearance="legacy" style="width: 635px;">
+            <mat-label>Situação</mat-label>
+            <input matInput placeholder="Texto livre" [(ngModel)]="busca.MensagemParaCliente" style="width: 100%;">
+            <mat-icon matSuffix>notes</mat-icon>
+            <mat-hint>Mensagem para o cliente sobre o erro</mat-hint>
+        </mat-form-field>
+    </p>
+
+    <div class="title">
+        E-mails para envio:
+    </div>
+    <div>
+        {{busca.Email}}
+    </div>
+    
+    <div>
+        <button mat-raised-button (click)="fecharDialog()">Cancelar</button>
+        <button mat-raised-button color="primary" (click)="salvarLog()">Salvar</button>
+    </div>
+
+</div>

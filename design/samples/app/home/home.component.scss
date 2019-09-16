@@ -1,0 +1,161 @@
+.mat-elevation-z8 {
+  width: 150px;
+  margin-left: 40px;
+  margin-top: 10px;
+}
+.texto {
+  font-family: "Verdana, Geneva, Tahoma, sans-serif";
+  font-weight: bold;
+}
+.content {
+  background: #eeeeee !important;
+  padding: 22px;
+  min-height: calc(100vh - 126px);
+}
+
+.space-dashboard {
+  display: inline-block;
+  margin: 5px;
+}
+
+.break-dashboard {
+  display: block;
+}
+
+app-chart {
+  vertical-align: top;
+  width: calc(50% - 20px);
+  margin: 10px;
+}
+
+[sw] {
+  width: calc(25% - 20px) !important;
+}
+
+[mw] {
+  width: calc(50% - 20px) !important;
+}
+
+[lw] {
+  width: calc(75% - 20px) !important;
+}
+
+[xw] {
+  width: calc(100% - 20px) !important;
+}
+
+[lh] {
+  height: 430px !important;
+}
+
+[mh] {
+  height: 280px !important;
+}
+
+[sh] {
+  height: 130px !important;
+}
+
+.row {
+  display: inline-block;
+  vertical-align: top;
+
+  &[sw] {
+    width: 25% !important;
+    // min-width: 290px !important;
+  }
+
+  &[mw] {
+    width: 50% !important;
+    // min-width: 290px !important;
+  }
+
+  &[lw] {
+    width: 75% !important;
+    // min-width: 290px !important;
+  }
+
+  &[xw] {
+    width: 100% !important;
+    // min-width: 290px !important;
+  }
+
+  &[sh] {
+    max-height: 130px !important;
+    height: 25% !important;
+    min-height: calc(25vh - 126px);
+  }
+
+  &[mh] {
+    height: 50% !important;
+    min-height: calc(50vh - 126px);
+  }
+
+  &[lh] {
+    height: 100% !important;
+    min-height: calc(100vh - 126px);
+  }
+}
+.row:empty {
+  width: 0 !important;
+}
+
+.listaColaboradores {
+  width: 324px;
+  height: 76px;
+}
+
+.conteudoColaboradores {
+  margin-left: 57px;
+}
+
+.contentCard {
+  width: 324px;
+  float: right;
+  background-color: white;
+  margin-top: 10px;
+  max-height: 662px;
+  overflow: scroll;
+  overflow-x: hidden;
+  box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
+    0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
+}
+
+.header-image {
+  background-size: cover;
+  background-position: center;
+  left: 5px;
+  position: absolute;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-color: white;
+  background-position: center center;
+  border: 2px solid #dedede;
+  margin-left: 5px;
+}
+
+.header-image-aniversariantes {
+  background-size: cover;
+  background-position: center;
+  left: 5px;
+  position: absolute;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-color: white;
+}
+
+.contentAniversariante {
+  display: inline-block;
+}
+
+.cardAniversariante {
+  width: 265px;
+  font-size: 13px;
+}
+.listaAniversariantes {
+  display: inline-block;
+  margin-left: 11px;
+  margin-right: 11px;
+}

@@ -1,0 +1,13 @@
+<div class="content">
+     <app-chart sw sh [dataset]="processosMonitorados" *ngIf="processosMonitorados.ativo" (closeClick)="processosMonitorados.ativo = false" (refreshClick)="obterQuantidadeMonitoramentoTotal()"></app-chart>
+    <app-chart sw sh [dataset]="valorProcessosMonitorados" *ngIf="valorProcessosMonitorados.ativo" (closeClick)="valorProcessosMonitorados.ativo = false" (refreshClick)="obterQuantidadeMonitoramentoTotal()"></app-chart>
+    <app-chart sw sh [dataset]="qtdPushSemMonitoramento" *ngIf="qtdPushSemMonitoramento.ativo" (closeClick)="qtdPushSemMonitoramento.ativo = false" (refreshClick)="obterPushSemMonitoramento()"></app-chart>
+    <app-chart sw sh [dataset]="valorProcessosNaoMonitorados" *ngIf="valorProcessosNaoMonitorados.ativo" (closeClick)="valorProcessosNaoMonitorados.ativo = false" (refreshClick)="obterPushSemMonitoramento()"></app-chart>
+    <app-chart sw sh [dataset]="qtdMonitoramentosErro" *ngIf="qtdMonitoramentosErro.ativo" (closeClick)="qtdMonitoramentosErro.ativo = false" (refreshClick)="obterMonitoramentoErro()"></app-chart>
+    <app-chart sw sh [dataset]="qtdMonitoramentosNotificados" *ngIf="qtdMonitoramentosNotificados.ativo" (closeClick)="qtdMonitoramentosNotificados.ativo = false" (refreshClick)="obterMonitoramentosNotificados()"></app-chart>
+    <app-chart sw sh [dataset]="qtdMonitoramentosPublicadosApol" *ngIf="qtdMonitoramentosPublicadosApol.ativo" (closeClick)="qtdMonitoramentosPublicadosApol.ativo = false" (refreshClick)="obterMonitoramentosPublicadosApol()"></app-chart>
+    <app-chart sw sh [dataset]="objMonitoramentosDesatualizados" *ngIf="objMonitoramentosDesatualizados.ativo" (closeClick)="objMonitoramentosDesatualizados.ativo = false" (refreshClick)="obterMonitoramentosDesatualizados()"></app-chart>
+    
+    <app-chart mw lh [dataset]="datasetProcessos" *ngIf="datasetProcessos.ativo" (closeClick)="datasetProcessos.ativo = false" (refreshClick)="obterQuantidadeMonitoramentoMes()"></app-chart>
+    <app-chart mw lh [dataset]="datasetProcessosValorMensal" *ngIf="datasetProcessosValorMensal.ativo" (closeClick)="datasetProcessosValorMensal.ativo = false" (refreshClick)="obterQuantidadeMonitoramentoMes()"></app-chart>
+</div>

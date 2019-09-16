@@ -1,0 +1,6 @@
+<mat-nav-list>
+    <a mat-list-item *ngFor="let ds of busca">
+        <span mat-line>{{ds.Data | date:'dd/MM/yyyy HH:mm:ss'}}</span>
+        <span mat-line>{{ds.DescricaoAndamento}}</span>
+    </a>
+</mat-nav-list>
