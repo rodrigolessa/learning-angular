@@ -1,11 +1,30 @@
 # learning-angular
 
-CRUD
+Create CRUD of Angular.Js with Yeoman Generator.
 
 ## Prerequisites
 
  - Node.js version 10.9.0 or later. Go to nodejs.org.
- - Install the Angular command-line interface CLI globally. Using npm command line intreface, wich is installed with Node.js.
+ - Install the Yeoman CLI.
+ - Install npm packages "-webapp"
+```shell
+npm install -g yo
+npm install -g generator-webapp
 ```
-npm install -g @angular/cli
+
+### Create a new project
+
+```shell
 ```
+
+### Create a controller with unit tests
+
+```shell
+```
+
+### Create module
+```shell
+
+```
+
+Bootstrapping new services

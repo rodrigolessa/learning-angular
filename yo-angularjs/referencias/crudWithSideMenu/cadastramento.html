@@ -1,0 +1,271 @@
+<div 
+  ng-controller="cadastramentoController as cad" 
+  ng-cloak
+  layout="column"
+  class="md-inline-form view-content">
+
+  <md-whiteframe class="md-whiteframe-2dp" flex layout layout-margin layout-align="space-around stretch" style="background-color: #fff;">
+
+  <md-content layout-padding>
+    <h2>Cadastro Complementar</h2>
+    <div layout-gt-xs="row">
+      <md-input-container class="md-block" flex-gt-sm>
+        <label>Nome</label>
+        <input ng-model="cad.usuario.Nome" type="text" ng-disabled="true">
+      </md-input-container>
+
+      <md-input-container class="md-block" flex-gt-sm>
+        <label>Sobrenome</label>
+        <input ng-model="cad.usuario.Sobrenome" ng-disabled="true">
+      </md-input-container>
+    </div>
+
+    <div>
+      <form name="frmUser">
+
+        <div layout-gt-sm="row">
+          <md-input-container>
+            <span style="margin-right:20px;">Sexo:</span>
+            <md-radio-group name="Genero" ng-model="cad.usuario.Genero" required>
+              <md-radio-button value="M">Masculino</md-radio-button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <md-radio-button value="F">Feminino</md-radio-button>
+            </md-radio-group>
+          </md-input-container>
+        </div>
+
+        <br />
+
+        <div layout-gt-sm="row">
+          <md-input-container class="md-block" flex-gt-sm>
+            <label>Endereço</label>
+            <input ng-model="cad.usuario.Endereco" type="text">
+          </md-input-container>
+
+          <md-input-container class="md-block" flex-gt-sm>
+            <label>Cidade</label>
+            <input ng-model="cad.usuario.Cidade" type="text" required>
+          </md-input-container>
+
+          <md-input-container class="md-block" flex-gt-sm>
+            <label>CEP</label>
+            <input ng-model="cad.usuario.CEP" type="text">
+          </md-input-container>
+
+          <md-input-container class="md-block" flex-gt-sm>
+            <label>Estado</label>
+            <md-select ng-model="cad.usuario.UF" required>
+              <md-option><em>...</em></md-option>
+              <md-option 
+                  ng-repeat="item in cad.listaDeEstados"
+                  ng-value="item.Sigla">
+                {{item.Nome}}
+              </md-option>
+            </md-select>
+          </md-input-container>
+        </div>
+
+        <div layout-gt-sm="row">
+          <md-input-container class="md-block" flex-gt-sm>
+            <label>Telefone (com DDD)</label>
+            <input name="Telefone" ng-model="cad.usuario.Telefone" ng-pattern="/^[0-9]{2} [0-9]{4} [0-9]{4}$/" />
+
+            <div class="hint" ng-show="showHints">## #### ####</div>
+
+            <div ng-messages="frmUser.Telefone.$error" ng-hide="showHints">
+              <div ng-message="pattern">## #### #### - Número inválido.</div>
+            </div>
+          </md-input-container>
+
+          <md-input-container class="md-block" flex-gt-sm>
+            <label>Celular (com DDD)</label>
+            <input name="Celular" ng-model="cad.usuario.Celular" ng-pattern="/^[0-9]{2} [0-9]{5} [0-9]{4}$/" />
+
+            <div class="hint" ng-show="showHints">## ##### ####</div>
+
+            <div ng-messages="frmUser.Celular.$error" ng-hide="showHints">
+              <div ng-message="pattern">## ##### #### - Número inválido.</div>
+            </div>
+          </md-input-container>
+
+          <md-input-container class="md-block" flex-gt-sm>
+            <label>E-mail</label>
+            <input ng-model="cad.usuario.Email" type="text" ng-disabled="true">
+          </md-input-container>
+
+        </div>
+
+        <div layout-gt-xs="row">
+          <md-input-container flex-gt-sm>
+            <p style="margin-left:15px;">Área de atuação</p>
+            <span style="margin-left:15px;font-weight: bold;">{{ cad.usuario.AreaDeInteresseSelecionado.Descricao }}</span>
+          </md-input-container>
+        </div>
+
+        <fieldset style="border-color: rgb(238,238,238); border-style: solid;">
+
+          <legend>Área de interesse</legend>
+
+          Você poderá escolher até 5 opções
+
+          <div layout="row" layout-wrap="" flex="">
+
+      			<div flex="50" ng-repeat="item in cad.usuario.AreaDeInteresseSelecionado.Subarea">
+      				<md-checkbox ng-checked="cad.exists(item, cad.usuario.SubareaSelecionadas)" ng-click="cad.toggle(item, cad.usuario.SubareaSelecionadas)">
+      					{{ item.Descricao }}
+      				</md-checkbox>
+      			</div>
+
+          </div>
+
+        </fieldset>
+
+        <div layout-gt-xs="row">
+          <md-input-container flex-gt-sm>
+            <p style="margin-bottom:5px;">Periodicidade de mentoria *</p>
+            <md-radio-group name="Periodicidade" ng-model="cad.usuario.Periodicidade" required>
+              <md-radio-button value="S">Semanal</md-radio-button>
+              <md-radio-button value="Q">Quinzenal</md-radio-button>
+              <md-radio-button value="M">Mensal</md-radio-button>
+            </md-radio-group>
+          </md-input-container>
+        </div>
+
+        <p style="margin-bottom:5px;">Disponibilidade *</p>
+
+        <div layout="row" layout-wrap="" flex="">
+            
+    			<div flex="50">
+    				<md-checkbox ng-model="cad.usuario.Domingo" aria-label="Domingo">
+    					Domingo
+    				</md-checkbox>
+        		<md-input-container class="md-block" flex="50">
+          		<label>Horário</label>
+          		<input
+                ng-model="cad.usuario.HorarioDomingo"
+                ng-disabled="!cad.usuario.Domingo"
+                type="time"
+                min="06:00:00" 
+                max="23:00:00"
+                placeholder="HH:mm:ss">
+        		</md-input-container>
+    			</div>
+
+    			<div flex="50">
+    				<md-checkbox ng-model="cad.usuario.Segunda" aria-label="Segunda">
+    					Segunda
+    				</md-checkbox>
+        		<md-input-container class="md-block" flex="50">
+          		<label>Horário</label>
+          		<input 
+                ng-model="cad.usuario.HorarioSegunda"
+          		 	ng-disabled="!cad.usuario.Segunda"
+                type="time"
+                min="06:00:00" 
+                max="23:00:00"
+                placeholder="HH:mm:ss">
+        		</md-input-container>
+    			</div>
+    			<div flex="50">
+    				<md-checkbox ng-model="cad.usuario.Terca" aria-label="Terca">
+    					Terça
+    				</md-checkbox>
+        		<md-input-container class="md-block" flex="50">
+          		<label>Horário</label>
+          		<input 
+                ng-model="cad.usuario.HorarioTerca"
+          		 	ng-disabled="!cad.usuario.Terca"
+                type="time"
+                min="06:00:00" 
+                max="23:00:00"
+                placeholder="HH:mm:ss">
+        		</md-input-container>
+    			</div>
+    			<div flex="50">
+    				<md-checkbox ng-model="cad.usuario.Quarta" aria-label="Quarta">
+    					Quarta
+    				</md-checkbox>
+        		<md-input-container class="md-block" flex="50">
+          		<label>Horário</label>
+          		<input 
+                ng-model="cad.usuario.HorarioQuarta"
+          		 	ng-disabled="!cad.usuario.Quarta"
+                type="time"
+                min="06:00:00" 
+                max="23:00:00"
+                placeholder="HH:mm:ss">
+        		</md-input-container>
+    			</div>
+    			<div flex="50">
+    				<md-checkbox ng-model="cad.usuario.Quinta" aria-label="Quinta">
+    					Quinta
+    				</md-checkbox>
+        		<md-input-container class="md-block" flex="50">
+          		<label>Horário</label>
+          		<input 
+                ng-model="cad.usuario.HorarioQuinta"
+          		 	ng-disabled="!cad.usuario.Quinta"
+                type="time"
+                min="06:00:00" 
+                max="23:00:00"
+                placeholder="HH:mm:ss">
+        		</md-input-container>
+    			</div>
+    			<div flex="50">
+    				<md-checkbox ng-model="cad.usuario.Sexta" aria-label="Sexta">
+    					Sexta
+    				</md-checkbox>
+        		<md-input-container class="md-block" flex="50">
+          		<label>Horário</label>
+          		<input 
+                ng-model="cad.usuario.HorarioSexta"
+          		 	ng-disabled="!cad.usuario.Sexta"
+                type="time"
+                min="06:00:00" 
+                max="23:00:00"
+                placeholder="HH:mm:ss">
+        		</md-input-container>
+    			</div>
+    			<div flex="50">
+    				<md-checkbox ng-model="cad.usuario.Sabado" aria-label="Sabado">
+    					Sábado
+    				</md-checkbox>
+        		<md-input-container class="md-block" flex="50">
+          		<label>Horário</label>
+          		<input 
+                ng-model="cad.usuario.HorarioSabado"
+          		 	ng-disabled="!cad.usuario.Sabado"
+                type="time"
+                min="06:00:00" 
+                max="23:00:00"
+                placeholder="HH:mm:ss">
+        		</md-input-container>
+    			</div>
+          
+        </div>
+        
+        <br />
+        <br />
+
+        <!--md-input-container class="md-block">
+          <label>Mini apresentação</label>
+          <textarea ng-model="cad.usuario.MiniApresentacao" md-maxlength="200" rows="5" md-select-on-focus required></textarea>
+        </md-input-container-->
+
+        <md-input-container class="md-block">
+          <label>Mini currículo</label>
+          <textarea ng-model="cad.usuario.MiniCurriculo" 
+            md-maxlength="500" rows="7" 
+            md-select-on-focus></textarea>
+        </md-input-container>
+
+        <div>
+          <md-button ng-click="cad.Salvar()" md-autofocus class="md-raised md-primary">Salvar</md-button>
+        </div>
+
+      </form>
+    </div>
+  </md-content>
+
+  </md-whiteframe>
+
+</div>

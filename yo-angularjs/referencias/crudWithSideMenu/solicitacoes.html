@@ -1,0 +1,41 @@
+<div layout="column"
+  ng-controller="solicitacaoController as sol"
+  ng-cloak>
+
+      <div layout-padding>
+
+            <md-card 
+                md-theme="default" 
+                md-theme-watch
+                ng-repeat="item in sol.lista">
+              <md-card-title>
+                <md-card-title-text>
+                  <span class="md-subhead" style="font-size: 12px;">{{item.SituacaoDescricao}}</span>
+                  <span class="md-headline" style="font-family: roboto slab; font-weight: bolder;">{{item.Mentorado}}</span>
+                  <!--span class="md-subhead">{{item.AreaDeInteresseSelecionado.Descricao}}</span-->
+                  <span class="md-subhead" style="font-size: 12px;">{{item.CidadeUsuario}}, {{item.UFUsuario}}</span>
+                  <p style="text-align: justify !important;">{{item.MiniCurriculo}}</p>
+                </md-card-title-text>
+                <md-card-title-media style="margin-right: 17px;">
+                  <div class="md-media-md card-media">
+                    <img 
+                      ng-src="{{ (item.FotoUsuario) ? item.FotoUsuario : 'img/sem-imagem.png' }}" 
+                      class="md-card-image" 
+                      alt="Foto" 
+                      style="border-radius:50% !important;box-sizing:content-box;border: 4px solid #CFD8DC;margin-left: 0px !important;">
+                  </div>
+                </md-card-title-media>
+              </md-card-title>
+              <md-card-actions layout="row" layout-align="start center">
+                <md-button ng-click="sol.aceitarMentoria($event, item)" class="md-raised md-accent" ng-disabled="(item.Situacao != 'S')">
+                  Aceitar Mentoria
+                </md-button>
+                <md-button ng-click="sol.recusarMentoria($event, item)" class="md-primary" ng-disabled="(item.Situacao != 'S')">
+                  Recusar Mentoria
+                </md-button>
+              </md-card-actions>
+            </md-card>
+
+      </div>
+
+</div>

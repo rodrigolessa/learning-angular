@@ -1,0 +1,131 @@
+<div layout="column" layout-padding
+  ng-controller="principalController as prl"
+  ng-cloak>
+
+  <section layout="row" flex>
+
+    <md-card flex
+        md-theme="docs-dark"
+        md-theme-watch
+        style="background: url('img/bg-fundoMentorEscolhido-01.jpg');">
+      <md-card-title>
+        <md-card-title-text>
+          <span class="md-subhead">{{prl.subhead}}</span>
+          <span class="md-headline">{{prl.Nome}} {{prl.Sobrenome}}</span>
+          <span>
+            <md-icon md-font-icon="material-icons md-18">place</md-icon>
+            {{prl.Cidade}}, {{prl.UF}}
+          </span>
+          <!--span class="md-subhead">{{prl.Formacao}}</span-->
+          <span layout="row" layout-align="start start" style="width:150px;margin-left:0;margin-top:15px;">
+            <md-icon md-font-icon="material-icons md-32 md-accent">star{{prl.Nivel > 0 ? '' : '_border'}}</md-icon>
+            <md-icon md-font-icon="material-icons md-32 md-accent">star{{prl.Nivel > 1 ? '' : '_border'}}</md-icon>
+            <md-icon md-font-icon="material-icons md-32 md-accent">star{{prl.Nivel > 2 ? '' : '_border'}}</md-icon>
+            <md-icon md-font-icon="material-icons md-32 md-accent">star{{prl.Nivel > 3 ? '' : '_border'}}</md-icon>
+            <md-icon md-font-icon="material-icons md-32 md-accent">star{{prl.Nivel > 4 ? '' : '_border'}}</md-icon>
+          </span>
+          <!-- Icones de votação -->
+          <!--
+          <i class="material-icons">star</i>
+          <i class="material-icons">&#xE838;</i>
+          <i class="material-icons">star_half</i>
+          <i class="material-icons">&#xE839;</i>
+          <i class="material-icons">star_border</i>
+          <i class="material-icons">&#xE83A;</i>
+          -->
+        </md-card-title-text>
+        <md-card-title-media style="margin-right: 17px;">
+          <div class="md-media-lg card-media">
+            <img ng-src="{{ (prl.Foto) ? prl.Foto : 'img/sem-imagem.png' }}" class="md-card-image" alt="Foto" style="border-radius:50% !important;box-sizing:content-box;border: 8px solid #CFD8DC;margin-left: 0px !important;">
+          </div>
+        </md-card-title-media>
+      </md-card-title>
+      <!--md-card-content></md-card-content-->
+      <md-card-actions layout="row" layout-align="start stretch">
+        <md-button ng-href="#!/busca" md-autofocus class="md-text" ng-disabled="desabilitaBusca">
+          <!--<i class="material-icons">search</i>-->
+          <md-icon md-font-icon="material-icons md-18">lightbulb_outline</md-icon>
+          Procurar Mentor
+        </md-button>
+        <md-button ng-href="#!/resumo" md-autofocus class="md-text" ng-disabled="desabilitaResumo">
+          <md-icon md-font-icon="material-icons md-18">insert_comment</md-icon>
+          Ver resumo da Mentoria
+        </md-button>
+        <md-button ng-href="#!/mentoria" class="md-accent" ng-disabled="desabilitaMentoria">
+          <md-icon md-font-icon="material-icons md-18">group</md-icon>
+          Ir Para Mentoria
+        </md-button>
+      </md-card-actions>
+    </md-card>
+
+  </section>
+
+  <section layout="row" flex>
+    
+    <md-whiteframe class="md-whiteframe-2dp" flex layout layout-margin layout-align="space-around stretch" style="background-color: #fff;">
+      <md-list flex>
+        <md-subheader class="md-no-sticky"><h2>Agenda</h2></md-subheader>
+        <md-list-item class="md-2-line" ng-repeat="agenda in prl.listaDeAgendamentos">
+          <md-icon md-font-icon="material-icons" ng-class="{'md-avatar-icon': agenda.Opcoes.IconeAvatar}">event{{agenda.Opcoes.Icone}}</md-icon>
+          <!-- Icones de Agendamentos -->
+          <!--
+          <i class="material-icons">event</i>
+          <i class="material-icons">&#xE878;</i>
+
+          <i class="material-icons">event_available</i>
+          <i class="material-icons">&#xE614;</i>
+
+          <i class="material-icons">event_busy</i>
+          <i class="material-icons">&#xE615;</i>
+
+          <i class="material-icons">event_note</i>
+          <i class="material-icons">&#xE616;</i>
+
+          <i class="material-icons">today</i>
+          <i class="material-icons">&#xE8DF;</i>
+
+          <i class="material-icons">alarm_on</i>
+          <i class="material-icons">&#xE858;</i>
+          -->
+          <!-- Icone de avatar -->
+          <!--md-icon md-font-icon="material-icons" ng-class="{'md-avatar-icon': agenda.Opcoes.AvatarIcon, 'md-accent': agenda.Opcoes.Alerta}" ng-if="agenda.Situacao == 'H'">&#xE8DF;</md-icon-->
+          <!-- Exibir foto persolizada -->
+          <!--img ng-src="img/sem-imagem.png" class="md-avatar" alt="Tooltip" ng-if="false"/-->
+          <div class="md-list-item-text" ng-class="{'md-offset': agenda.Opcoes.Offset }">
+            <h3> {{ agenda.Descricao }} </h3>
+            <a href ng-click="prl.cancelarAgendamento($event, agenda)" ng-hide="agenda.DesabilitaCancelamento">cancelar agendamento</a>
+            <a href ng-click="prl.irParaMentoria($event, agenda)" ng-if="agenda.HabilitaSala">ir para mentoria</a>
+            <!--p> {{ agenda.SituacaoDescricao }} </p-->
+          </div>
+          <md-button class="md-secondary md-icon-button" ng-click="prl.irParaMentoria($event, agenda)" ng-if="agenda.HabilitaSala" aria-label="call">
+            <md-icon md-font-icon="material-icons">&#xE91F;</md-icon>
+          </md-button>
+        </md-list-item>
+      </md-list>
+    </md-whiteframe>
+
+    <md-whiteframe class="md-whiteframe-2dp" flex layout layout-margin layout-align="space-around stretch" style="background-color: #fff;">
+      <md-list flex>
+        <md-subheader class="md-no-sticky"><h2>Notificações</h2></md-subheader>
+        <md-list-item class="md-2-line" ng-repeat="aviso in prl.listaDeAvisos" ng-click="prl.exibirNotificacao($event, aviso)">
+          <md-icon md-font-icon="material-icons" ng-class="{'md-avatar-icon': aviso.Opcoes.IconeAvatar}">check_box{{aviso.Feito ? '' : '_outline_blank'}}</md-icon>
+          <!-- Icones de Avisos -->
+          <!--
+          <i class="material-icons">check_box</i>
+          <i class="material-icons">&#xE834;</i>
+
+          <i class="material-icons">check_box_outline_blank</i>
+          <i class="material-icons">&#xE835;</i>
+          -->
+          <div class="md-list-item-text" ng-class="{'md-offset': aviso.Opcoes.Offset }">
+            <h3> {{ aviso.Descricao }} </h3>
+          </div>
+        </md-list-item>
+      </md-list>
+    </md-whiteframe>
+
+  </section>
+
+  
+
+</div>

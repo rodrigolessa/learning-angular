@@ -1,0 +1,97 @@
+<div 
+  ng-controller="cadastroController as cad" 
+  ng-cloak
+  layout="column"
+  class="md-inline-form view-content" style="max-width: 960px !important;margin: 0 auto;">
+
+<a href="/" target="_blank"><img src="../img/logo-mentorize.png" style="width: 270px;margin:0 auto;"></a>
+  <md-content layout-padding>
+
+    <h2>{{cad.titulo}}</h2>
+
+    <div layout-gt-sm="row">
+      <md-input-container class="md-block" flex-gt-sm="50">
+        <label>O que deseja ser *</label>
+        <md-select ng-model="cad.usuario.Tipo">
+          <md-option><em>...</em></md-option>
+          <md-option ng-value="0">Mentor</md-option>
+          <md-option ng-value="1">Mentorado</md-option>
+        </md-select>
+      </md-input-container>
+    </div>
+
+    <div layout-gt-xs="row">
+      <md-input-container flex-gt-sm>
+        <label>Nome</label>
+        <input ng-model="cad.usuario.Nome" type="text" required>
+      </md-input-container>
+
+      <md-input-container flex-gt-sm>
+        <label>Sobrenome</label>
+        <input ng-model="cad.usuario.Sobrenome" type="text" required>
+      </md-input-container>
+    </div>
+
+  </md-content>
+
+  <md-content layout-padding>
+    <div>
+      <form name="frmCadastro" ng-submit="cad.Salvar()">
+
+        <div layout-gt-sm="row">
+          <md-input-container class="md-block" flex-gt-sm>
+            <label>E-mail</label>
+            <input ng-model="cad.usuario.Email" type="email" required>
+          </md-input-container>
+
+          <md-input-container class="md-block" flex-gt-sm>
+            <label>Área de atuação</label>
+            <md-select ng-model="cad.usuario.AreaDeInteresse">
+              <md-option><em>...</em></md-option>
+              <md-option 
+                  ng-repeat="item in cad.listaDeAreaDeInteresse" 
+                  ng-value="item.Codigo">
+                {{item.Descricao}}
+              </md-option>
+            </md-select>
+          </md-input-container>
+        </div>
+
+        <div layout-gt-xs="row">
+          <md-input-container flex-gt-sm>
+            <label>Senha</label>
+            <input ng-model="cad.usuario.Senha" type="password" required>
+          </md-input-container>
+
+          <md-input-container flex-gt-sm>
+            <label>Confirmação de senha</label>
+            <input ng-model="cad.usuario.ConfirmacaoDeSenha" type="password" required>
+          </md-input-container>
+        </div>
+
+        <div layout-gt-sm="row">
+
+          <!--md-input-container class="md-block" flex-gt-sm>
+            <md-checkbox name="tds" ng-model="cad.usuario.tds" required>
+              Eu aceito os termos de serviço.
+            </md-checkbox>
+            <div ng-messages="frmCadastro.tds.$error" multiple md-auto-hide="false">
+              <div ng-message="required">
+                Você deve aceitar os termos de serviço antes de prosseguir.
+              </div>
+            </div>
+          </md-input-container-->
+
+          <p>Ao clicar em Salvar, você concorda com nossos <a href="/termos-gerais-e-condicoes-de-uso/" target="_blank">Termos Gerais e Condições de Uso</a> e com nossa <a href="/politica-de-privacidade/" target="_blank">Política de Privacidade</a>.</p>
+
+        </div>
+
+        <div>
+          <md-button type="submit" md-autofocus class="md-raised md-accent">Salvar</md-button>
+        </div>
+
+      </form>
+    </div>
+  </md-content>
+
+</div>

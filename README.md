@@ -1,4 +1,4 @@
-# learning-angular
+﻿# learning-angular
 
 Angular 8 CRUD
 
@@ -87,19 +87,19 @@ Creating shared components
 ```shel
 ng generate module shared
 cd shared
-ng generate component side-menu
-ng generate component header
-ng generate component alert
+ng generate component menu-lateral
+ng generate component cabecalho
+ng generate component alerta
 ng generate component dialog
-ng generate component footer
+ng generate component rodape
 ng generate component breadcrumb
 ng generate component chart
 ng generate directive click-out
 ```
 
-?
-ng generate class Hero
-ng new angular-forms
+// ?
+// ng generate class teste
+// ng new angular-forms
 
 Validate application code using basic roles
 ```shel
