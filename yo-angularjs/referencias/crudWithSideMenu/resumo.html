@@ -1,0 +1,66 @@
+<div layout="column"
+  ng-controller="resumoController as rmo"
+  ng-cloak>
+
+  <section layout="row" flex>
+
+    <!--md-sidenav class="md-sidenav-left" 
+      md-component-id="left" 
+      md-is-locked-open="$mdMedia('gt-xs')" 
+      md-whiteframe="4">
+
+      <md-toolbar class="md-hue-1">
+        <h1 class="md-toolbar-tools">Meu Mentor</h1>
+      </md-toolbar-->
+
+      <!--
+      <md-content layout="column" layout-padding>
+
+        <div style="text-align: center;">
+          <img ng-src="img/ideas-96.png" alt="Foto" tyle="border-radius:50% !important; box-sizing:content-box;">
+        </div>
+
+        <h1 style="text-align: center;">Mentor</h1>
+
+        <span layout="row" layout-align="start start" style="width:100%;margin-left:0;margin-top:10px;margin-bottom:20px;">
+          <md-icon md-font-icon="material-icons md-36">&#xE838;</md-icon>
+          <md-icon md-font-icon="material-icons md-36">&#xE838;</md-icon>
+          <md-icon md-font-icon="material-icons md-36">&#xE838;</md-icon>
+          <md-icon md-font-icon="material-icons md-36">&#xE838;</md-icon>
+          <md-icon md-font-icon="material-icons md-36">&#xE83A;</md-icon>
+        </span>
+
+        <md-button ng-href="#!/marcarHorario" md-autofocus class="md-raised md-primary">
+          Marcar outra sessão
+        </md-button>
+          
+      </md-content>
+      -->
+
+    <!--/md-sidenav-->
+
+    <md-content flex style="width: 100% !important;">
+
+      <md-button ng-click="toggleLeft()" class="md-primary" hide-gt-xs="">Meu Mentor</md-button>
+
+      <div layout-padding>
+
+          <section ng-repeat="resumo in rmo.listaDeResumos">
+
+            <h2>Sessão no dia {{ resumo.Data }}</h2>
+            <h3>Anotações:</h3>
+            <p>{{ resumo.Anotacao }}</p>
+
+            <!--
+            <p>Arquivos: <a href="#">documento.pdf</a> &nbsp; <a href="#">documento.pdf</a></p>
+            -->
+
+          </section>
+
+      </div>
+
+    </md-content>
+
+  </section>
+
+</div>

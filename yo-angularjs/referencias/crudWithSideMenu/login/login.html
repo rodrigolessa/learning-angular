@@ -1,0 +1,93 @@
+
+<div layout="row" layout-padding
+	ng-contoller="loginController"
+	ng-cloak>
+
+    <section layout="column" flex layout-align="center center" class="login">
+        <a href="/" target="_blank"><img src="../img/logo-mentorize.png"></a>
+        <md-card>
+            <md-card-content>
+                <form name="frmLogin" ng-submit="Entrar()">
+                    <md-input-container class="md-block">
+                        <label for="email">Email</label>
+						<input ng-model="usuario.Email" type="email" name="email" 
+							minlength="3" 
+							maxlength="45"
+							ng-pattern="/^.+@.+\..+$/"
+							required>
+					<div ng-messages="frmLogin.email.$error" role="alert">
+						<div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
+							O tamanha para o e-mail deve estar entre 5 e 50 caracteres.
+						</div>
+					</div>
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <label for="senha">Password</label>
+                        <input ng-model="usuario.Senha" type="password" minlength="3" maxlength="45" name="senha" 
+                        	required>
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <div layout="row" layout-align="center center">
+                            <md-button type="submit" md-autofocus class="md-raised md-accent" flex>Entrar</md-button>
+                        </div>
+                    </md-input-container>
+                </form>
+            </md-card-content>
+        </md-card>
+
+		<md-content layout="row" layout-padding layout-align="space-around stretch"
+            style="background-color: transparent;">
+			<md-button md-no-ink ng-href="#!/cadastro">
+				Cadastre-se
+			</md-button>
+			<md-button md-no-ink ng-click="showGerarNovaSenha($event)">
+				Esqueci minha senha
+			</md-button>
+		</md-content>
+    </section>
+
+    <!-- Alteração de Senha DIALOG -->
+    <!-- TODO: Colocar template em arquivo -->
+
+    <script type="text/ng-template" id="dialogNovaSenha">
+        <md-dialog aria-label="Nova Senha">
+                <md-toolbar>
+                    <div class="md-toolbar-tools">
+                        <h2>Esqueci Minha Senha</h2>
+                        <span flex></span>
+                        <md-button class="md-icon-button" ng-click="cancel()">
+                            <md-icon md-font-icon="material-icons md-32 md-accent" aria-label="Close dialog">close</md-icon>
+                        </md-button>
+                    </div>
+                </md-toolbar>
+                <md-dialog-content>
+                    <div class="md-dialog-content">
+                        <form name="gerarNovaSenha">
+                            <md-input-container md-no-float class="md-block">
+                                <label>Informe o e-mail cadastrado</label>
+                                <md-icon md-font-icon="material-icons">&#xE0E1;</md-icon>
+                                <input ng-model="usuario.Email" type="email" name="email" 
+                                    minlength="5" 
+                                    maxlength="50"
+                                    ng-pattern="/^.+@.+\..+$/" 
+                                    required >
+                                <div ng-messages="gerarNovaSenha.email.$error" role="alert">
+                                    <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
+                                        O tamanha para o e-mail deve estar entre 5 e 50 caracteres.
+                                    </div>
+                                </div>
+                            </md-input-container>
+                        </form>
+                    </div>
+                </md-dialog-content>
+                <md-dialog-actions layout="row" layout-align="start stretch">
+                    <md-button ng-click="recuperarSenha()" md-autofocus class="md-raised md-primary" flex>
+                        Recuperar Senha
+                    </md-button>
+                </md-dialog-actions>
+        </md-dialog>
+    </script>
+
+    <!-- END Alteração de Senha Dialog -->
+
+</div>

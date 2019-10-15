@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html ng-app="mentorizeApp">
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+
+  <title>Mentorize</title>
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Slab:100,400,700">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+  <link rel='stylesheet prefetch' href='bower_components/angular-material/angular-material.min.css'>
+
+  <link rel='stylesheet prefetch' href='https://material.angularjs.org/1.1.3/docs.css'>
+
+  <link rel="stylesheet" href="bower_components/toastr/toastr.css" />
+
+  <link rel="stylesheet" href="css/app.css" />
+
+  <script src="https://meet.jit.si/external_api.js"></script>
+  
+</head>
+
+<body>
+
+	<div id="menuSuperior"
+		ng-controller="indexController as ctrl"
+		ng-class="animation"
+		ng-cloak>
+
+		<md-toolbar class="md-hue-2 md-whiteframe-3dp"
+			ng-hide="hideNavBar" style="z-index:99">
+
+			<div class="md-toolbar-tools">
+
+				<a href="/" target="_blank"><img src="img/logo-mentorize.png" width="173px"></a>
+
+				<span flex></span>
+			
+				<!--md-button class="md-icon-button" aria-label="Settings" ng-disabled="true">
+					<md-icon md-font-icon="material-icons">&#xE90F;</md-icon>
+				</md-button>
+
+				<h2 flex md-truncate>Mentorize</h2-->
+
+				<md-button ng-href="#!/" class="md-icon-button" 
+					aria-label="Principal">
+					<md-icon md-font-icon="material-icons">&#xE88A;</md-icon>
+				</md-button>
+
+				<md-button ng-href="#!/" class="md-icon-button md-accent" 
+					aria-label="Agenda" 
+					ng-disabled="desabilitaAgenda">
+					<md-icon md-font-icon="material-icons">&#xE616;</md-icon>
+				</md-button>
+
+				<md-button ng-href="#!/" class="md-icon-button md-accent" 
+					aria-label="Notificações" 
+					ng-disabled="desabilitaNotificacao">
+					<md-icon md-font-icon="material-icons">&#xE7F7;</md-icon>
+				</md-button>
+
+				<md-menu>
+					<!--class="md-icon-button"-->
+					<md-button aria-label="Abrir Menu de Contexto"
+						ng-click="ctrl.openMenu($mdMenu, $event)"
+						style="max-height: 10px;">
+						<img ng-src="{{ (usuario.Foto) ? usuario.Foto : 'img/sem-imagem.png' }}" alt="Foto" style="border-radius:50% !important;max-width:35px;" />
+						<!--md-icon md-font-icon="material-icons">&#xE853;</md-icon-->
+						<!--img ng-src="img/sem-imagem.png" class="md-avatar" alt="Tooltip" 
+							ng-if="false"/-->
+					</md-button>
+					<md-menu-content width="4">
+						<md-menu-item>
+							<md-button ng-click="ctrl.showAlteracaoDeSenha($event)">
+								<md-icon md-font-icon="material-icons">&#xE0DA;</md-icon>
+								Alterar senha
+							</md-button>
+						</md-menu-item>
+						<md-menu-item>
+							<md-button ng-href="#!/cadastro"><!--disabled="disabled"-->
+								<md-icon md-font-icon="material-icons">&#xE150;</md-icon>
+								Editar cadastro
+							</md-button>
+						</md-menu-item>
+						<md-menu-item>
+							<md-button ng-click="ctrl.showEditarFoto()"><!--disabled="disabled"-->
+								<md-icon md-font-icon="material-icons">&#xE87C;</md-icon>
+								Editar Foto
+							</md-button>
+						</md-menu-item>
+						<!--md-menu-item>
+							<md-button ng-click="ctrl.toggleNotifications()">
+								< ! - - md-icon md-svg-icon="social:notifications-{{ctrl.notificationsEnabled ? 'off' : 'on'}}"></md-icon - - >
+								<md-icon md-font-icon="material-icons">notifications_{{ctrl.notificationsEnabled ? 'off' : 'active'}}</md-icon>
+								{{ctrl.notificationsEnabled ? 'Desabilitar' : 'Habilitar' }} notificações
+							</md-button>
+						</md-menu-item-->
+						<md-menu-item ng-hide="hideSolicitacoes">
+							<md-button ng-href="#!/solicitacoes">
+								<md-icon md-font-icon="material-icons">&#xE80C;</md-icon>
+								Ver solicitações
+							</md-button>
+						</md-menu-item>
+						<md-menu-divider></md-menu-divider>
+						<md-menu-item>
+							<md-button ng-click="ctrl.sair()">
+								<md-icon md-font-icon="material-icons">&#xE879;</md-icon>
+								Sair
+							</md-button>
+						</md-menu-item>
+					</md-menu-content>
+				</md-menu>
+			</div>
+		</md-toolbar>
+
+		<!-- Alteração de Senha DIALOG -->
+		<!-- TODO: Colocar template em arquivo -->
+
+		<script type="text/ng-template" id="dialogAlterarSenha">
+			<md-dialog aria-label="Alteração de Senha">
+					<md-toolbar>
+						<div class="md-toolbar-tools">
+							<h2>Alteração de Senha</h2>
+							<span flex></span>
+							<md-button class="md-icon-button" ng-click="cancel()">
+								<md-icon md-font-icon="material-icons md-32 md-accent" aria-label="Close dialog">close</md-icon>
+							</md-button>
+						</div>
+					</md-toolbar>
+
+					<md-dialog-content>
+						<div class="md-dialog-content">
+							<form name="alteracaoSenha">
+								<md-input-container md-no-float class="md-block">
+									<label>Senha atual</label>
+									<!--md-icon md-font-icon="material-icons">&#xE0DA;</md-icon-->
+									<input ng-model="senhasDoUsuario.SenhaAtual" name="senhaAtual"
+										type="password" 
+										minlength="5">
+								</md-input-container>
+								<md-input-container md-no-float class="md-block">
+									<label>Nova senha</label>
+									<!--md-icon md-font-icon="material-icons">&#xE0DA;</md-icon-->
+									<input ng-model="senhasDoUsuario.Senha" name="senha"
+										type="password"
+										minlength="5">
+								</md-input-container>
+								<md-input-container md-no-float class="md-block">
+									<label>Confirmar senha</label>
+									<!--md-icon md-font-icon="material-icons">&#xE0DA;</md-icon-->
+									<input ng-model="senhasDoUsuario.SenhaConfirmar" name="senhaConfirmar"
+										type="password"
+										minlength="5">
+								</md-input-container>
+							</form>
+						</div>
+					</md-dialog-content>
+					<md-dialog-actions layout="row" layout-align="start stretch">
+						<md-button ng-click="alterar()" md-autofocus class="md-raised md-primary" flex>
+							Alterar
+						</md-button>
+					</md-dialog-actions>
+			</md-dialog>
+		</script>
+
+		<!-- END Alteração de Senha Dialog -->
+
+		<div ng-view class="view"></div>
+
+	</div>
+
+	<script src='bower_components/angular/angular.min.js'></script>
+	<script src='bower_components/angular-animate/angular-animate.min.js'></script>
+	<script src='bower_components/angular-route/angular-route.min.js'></script>
+	<script src='bower_components/angular-aria/angular-aria.min.js'></script>
+	<script src='bower_components/angular-messages/angular-messages.min.js'></script>
+	<script src='bower_components/angular-material/angular-material.min.js'></script>
+
+	<script src='bower_components/moment/min/moment-with-locales.min.js'></script>
+
+	<!--script src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/t-114/svg-assets-cache.js'></script-->
+
+	<script src="bower_components/jquery/dist/jquery.min.js"></script>
+	<script src="bower_components/toastr/toastr.min.js"></script>
+
+	<script src="models/AgendamentoViewModel.js"></script>
+	<script src="models/MentoriaViewModel.js"></script>
+	<script src="models/NotificacaoViewModel.js"></script>
+	<script src="models/UsuarioViewModel.js"></script>
+
+	<script src="controllers/indexController.js"></script>
+	<script src="controllers/principalController.js"></script>
+	<script src="controllers/buscaController.js"></script>
+	<script src="controllers/cadastramentoController.js"></script>
+	<script src="controllers/solicitacaoController.js"></script>
+	<script src="controllers/agendamentoController.js"></script>
+	<script src="controllers/mentoriaController.js"></script>
+	<script src="controllers/resumoController.js"></script>
+
+	<script src="app/app.module.js"></script>
+	<script src="app/app.constant.js"></script>
+	<script src="app/app.theme.js"></script>
+	<script src="app/app.config.js"></script>
+
+	<!--script src="https://meet.jit.si/external_api.js"></script-->
+
+	<script type="text/javascript">
+
+		moment.locale('pt-BR');
+
+		toastr.options = {
+		  "closeButton": true,
+		  "debug": false,
+		  "newestOnTop": false,
+		  "progressBar": true,
+		  "positionClass": "toast-top-right",
+		  "preventDuplicates": false,
+		  "onclick": null,
+		  "showDuration": "300",
+		  "hideDuration": "1000",
+		  "timeOut": "5000",
+		  "extendedTimeOut": "1000",
+		  "showEasing": "swing",
+		  "hideEasing": "linear",
+		  "showMethod": "fadeIn",
+		  "hideMethod": "fadeOut"
+		}
+	</script>
+
+</body>
+</html>

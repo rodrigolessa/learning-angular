@@ -1,0 +1,171 @@
+<div layout="column"
+  ng-controller="buscaController as busca"
+  ng-cloak>
+
+  <section layout="row" flex>
+
+    <md-sidenav md-theme="docs-dark" class="md-sidenav-left" 
+      md-component-id="left" 
+      md-is-locked-open="$mdMedia('gt-xs')" 
+      md-whiteframe="4"
+      >
+
+      <!--class="md-hue-1"-->
+      <md-toolbar style="background-color: transparent; color: #fff;">
+        <h1 class="md-toolbar-tools">Procurar Mentor</h1>
+      </md-toolbar>
+
+      <md-content
+        layout="column" 
+        layout-padding
+        style="background-color: transparent;">
+        <!-- Colocar sideNav na página inicial e só pexibir em algumas páginas? -->
+        <!--ng-controller="buscaController"-->
+
+        <md-input-container flex>
+          <label>Nome</label>
+          <input ng-model="busca.Nome" type="text">
+        </md-input-container>
+
+        <md-input-container flex>
+          <label>Área de intresse</label>
+          <md-select ng-model="busca.AreaDeInteresse">
+            <md-option><em>...</em></md-option>
+            <md-option 
+                ng-repeat="area in listaAreasDeInteresse" 
+                ng-value="area">
+              {{area.Descricao}}
+            </md-option>
+          </md-select>
+        </md-input-container>
+        
+        <!--md-input-container flex>
+          <label>Subáreas</label>
+          <md-select ng-model="busca.SubAreaDeInteresse">
+            <md-option><em>...</em></md-option>
+            <md-option 
+                ng-repeat="subarea in busca.AreaDeInteresse.Subarea" 
+                ng-value="subarea.Codigo">
+              {{subarea.Descricao}}
+            </md-option>
+          </md-select>
+        </md-input-container-->
+
+        <div layout="row" layout-align="space-between stretch">
+
+          <md-button ng-click="busca.buscar()" md-autofocus class="md-text" style="background: #ffc400;" flex>
+            Buscar
+          </md-button>
+
+          <md-button ng-click="busca.limpar()" ng-disabled="!(busca.Nome || busca.AreaDeInteresse)" flex>
+            Limpar
+          </md-button>
+
+        </div>
+          
+      </md-content>
+
+    </md-sidenav>
+
+    <md-content flex>
+
+      <md-button ng-click="toggleLeft()" class="md-primary" hide-gt-xs="">
+        Procurar Mentor
+      </md-button>
+
+      <!--div layout-padding style="max-height: 800px;"-->
+      <div layout-padding style="background: #cfd8dc;">
+
+          <section>
+
+            <!--md-subheader>
+              <h2 class="md-toolbar-tools">
+                <span>Mentores</span>
+              </h2>
+            </md-subheader-->
+
+            <md-card 
+                md-theme="default" 
+                md-theme-watch
+                ng-repeat="mentor in busca.listaDeUsuarios 
+                  | filter: { 'AreaDeInteresse': busca.AreaDeInteresse.Codigo, 'Nome': busca.Nome } 
+                  | limitTo:busca.limiteCards">
+                <!--ng-repeat="mentor in busca.listaDeUsuarios | filter:$ctrl.query | orderBy:$ctrl.orderProp | limitTo:quantity"-->
+              <md-card-title>
+                <md-card-title-text>
+                  <span class="md-headline">{{mentor.NomeCompleto}}</span>
+                  <span class="md-subhead">{{mentor.AreaDeInteresseSelecionado.Descricao}}</span>
+                  <span class="md-subhead">{{mentor.Cidade}}, {{mentor.UF}}</span>
+                </md-card-title-text>
+                <md-card-title-media style="margin-right: 17px;">
+                  <div class="md-media-md card-media">
+                    <img 
+                      ng-src="{{ (mentor.Foto) ? mentor.Foto : 'img/sem-imagem.png' }}" 
+                      class="md-card-image" alt="Foto" 
+                      style="border-radius:50% !important;box-sizing:content-box;border: 4px solid #CFD8DC;margin-left: 0px !important;"
+                      ng-click="busca.showPerfil($event, mentor)">
+                  </div>
+                </md-card-title-media>
+              </md-card-title>
+              <md-card-actions layout="row" layout-align="start center">
+                <md-button ng-click="busca.showPerfil($event, mentor)" class="md-primary">
+                  Minicurriculo
+                </md-button>
+              </md-card-actions>
+            </md-card>
+
+          </section>
+
+      </div>
+
+    </md-content>
+
+  </section>
+
+  </md-whiteframe>
+
+    <!-- DIALOG - Perfil do Mentor -->
+
+    <script type="text/ng-template" id="dialogPerfil">
+      <md-dialog aria-label="Perfil do Mentor" style="width: 800px;">
+
+          <md-toolbar>
+            <div class="md-toolbar-tools">
+              <h2>{{Perfil.NomeCompleto}}</h2>
+              <span flex></span>
+              <md-button class="md-icon-button" ng-click="cancel()">
+                <md-icon md-font-icon="material-icons md-32 md-accent" aria-label="Close dialog">close</md-icon>
+              </md-button>
+            </div>
+          </md-toolbar>
+
+          <md-dialog-content>
+            <div class="md-dialog-content">
+              <div style="width:100%;text-align: center;">
+              <img ng-src="{{ (Perfil.Foto) ? Perfil.Foto : 'img/sem-imagem.png' }}" 
+                alt="Foto" 
+                style="border-radius:50% !important;box-sizing:content-box;text-align:center;border: 8px solid #CFD8DC;margin-left: 0px !important;"
+              </div>
+              <p style="text-align: center;">{{Perfil.AreaDeInteresseSelecionado.Descricao}}</p>
+              <!--p style="text-align: center;">{{Perfil.AreaDeInteresseOutros}}</p-->
+              <p style="text-align: left;">
+                Mini currículo:<br />
+                <span>{{Perfil.MiniCurriculo}}</span>
+              </p>
+            </div>
+          </md-dialog-content>
+          <md-dialog-actions layout="row" layout-align="start stretch">
+            <md-button ng-click="solicitarMentoria()" md-autofocus class="md-raised md-accent" flex>
+              Quero ele como mentor!
+            </md-button>
+            <md-button ng-click="hide()" md-autofocus class="md-raised" flex>
+              Não faz o meu perfil.
+            </md-button>
+          </md-dialog-actions>
+
+      </md-dialog>
+    </script>
+
+    <!-- END Dialog Perfil do Mentor -->
+
+</div>

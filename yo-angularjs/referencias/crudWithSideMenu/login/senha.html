@@ -1,0 +1,27 @@
+<div 	layout="row" 
+		layout-xs="column"
+		layout-padding
+		layout-align="center center">
+	<div flex>
+		<h2>Esqueci Minha Senha</h2>
+		<form name="accountLogin">
+		<md-input-container class="md-block">
+			<label>Informe o e-mail cadastrado</label>
+			<md-icon md-svg-src="img/icons/ic_email_24px.svg" class="email"></md-icon>
+			<input ng-model="usuario.email" type="email" name="email" 
+				minlength="5" 
+				maxlength="50"
+				ng-pattern="/^.+@.+\..+$/" 
+				required >
+		<div ng-messages="accountLogin.email.$error" role="alert">
+			<div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
+				O tamanha para o e-mail deve estar entre 5 e 50 caracteres.
+			</div>
+		</div>
+		</md-input-container>
+		<md-button ng-href="#!/login" ng-click="recuperarSenha()" md-autofocus class="md-raised md-primary">
+			Recuperar Senha
+		</md-button>
+		</form>
+	</div>
+</div>

@@ -1,0 +1,224 @@
+body {
+  background:#cfd8de;
+  font-family: 'Roboto', sans-serif;
+}
+
+md-sidenav {
+  background: #202020;
+  color: #fff !important;
+}
+
+/* LOGIN */
+
+.login md-card {
+  width: 400px;
+}
+/*
+.login md-toolbar {
+  border-top: 20px #757575 solid;
+}
+
+.login h1 {
+  text-align: center;
+  padding-top: 25px !important;
+  padding-bottom: 1px !important;
+  margin-bottom: 1px !important;
+}
+
+.login img {
+  text-align: center;
+  padding-top: 25px !important;
+  padding-bottom: 1px !important;
+  margin-bottom: 1px !important;
+}
+*/
+/********************************************************/
+/* CABEÇALHO */
+
+md-toolbar {
+  padding-right: 15px !important;
+}
+
+/********************************************************/
+/* Área de coteúdo das páginas */
+
+.view {
+  position: absolute;
+  width: 100%;
+  transition: 600ms;
+}
+
+/* Animação em Transições de páginas */
+
+/* Different ngRoute animations - https://codepen.io/paulwood/pen/tgHaB */
+/* First animation */
+.first .view.ng-enter{
+  left: -100%;
+}
+
+.first .view.ng-enter.ng-enter-active{
+  left: 0%;
+}
+
+.first .view.ng-leave{
+  left: 0%;
+}
+
+.first .view.ng-leave.ng-leave-active{
+  left: 100%;
+}
+
+/* Second animation */
+.second .view.ng-enter{
+  left: 100%;
+}
+
+.second .view.ng-enter.ng-enter-active{
+  left: 0%;
+}
+
+.second .view.ng-leave{
+  left: 0%;
+}
+
+.second .view.ng-leave.ng-leave-active{
+  left: -100%;
+}
+
+/* Enter animation */
+.welcome .view.ng-enter{
+  opacity: 0;
+}
+
+/* TEXTOS */
+
+h2.titulo {
+  font-weight: bold;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+/********************************************************/
+/* ICONS */
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;  /* Preferred icon size */
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
+
+  /* Support for all WebKit browsers. */
+  -webkit-font-smoothing: antialiased;
+  /* Support for Safari and Chrome. */
+  text-rendering: optimizeLegibility;
+
+  /* Support for Firefox. */
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Support for IE. */
+  font-feature-settings: 'liga';
+}
+
+/* Styling icons in material design */
+
+/* Rules for sizing the icon. */
+.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-24 { font-size: 24px; }
+.material-icons.md-32 { font-size: 32px; }
+.material-icons.md-36 { font-size: 36px; }
+.material-icons.md-48 { font-size: 48px; }
+
+/* Rules for using icons as black on a light background. */
+.material-icons.md-dark { color: rgba(0, 0, 0, 0.54); }
+.material-icons.md-dark.md-inactive { color: rgba(0, 0, 0, 0.26); }
+
+/* Rules for using icons as white on a dark background. */
+.material-icons.md-light { color: rgba(255, 255, 255, 1); }
+.material-icons.md-light.md-inactive { color: rgba(255, 255, 255, 0.3); }
+
+/********************************************************/
+/* FORMS */
+
+.md-button {
+  padding-left: 15px !important;
+  padding-right: 15px !important;
+}
+
+/********************************************************/
+
+/* MENSAGENS */
+
+/*
+.alert {
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
+.alert-success {
+  color: #3c763d;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+}
+
+.alert-info {
+  color: #31708f;
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+}
+
+.alert-warning {
+  color: #8a6d3b;
+  background-color: #fcf8e3;
+  border-color: #faebcc;
+}
+
+.alert-danger {
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
+}
+*/
+
+/* TOAST */
+
+.alert-success .md-toast-content {
+  padding: 20px;
+  font-size: 15px !important;
+  color: #3c763d !important;
+  background-color: #dff0d8 !important;
+  border-color: #d6e9c6 !important;
+  font-size: 15px !important;
+}
+
+.alert-info .md-toast-content {
+  padding: 20px;
+  font-size: 15px !important;
+  color: #31708f !important;
+  background-color: #d9edf7 !important;
+  border-color: #bce8f1 !important;
+}
+
+.alert-warning .md-toast-content {
+  padding: 20px;
+  font-size: 15px !important;
+  color: #8a6d3b !important;
+  background-color: #fcf8e3 !important;
+  border-color: #faebcc !important;
+}
+
+.alert-danger .md-toast-content {
+  padding: 20px;
+  font-size: 15px !important;
+  color: #a94442 !important;
+  background-color: #f2dede !important;
+  border-color: #ebccd1 !important;
+}

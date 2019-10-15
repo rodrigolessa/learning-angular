@@ -1,0 +1,85 @@
+<div layout="column" layout-padding
+  ng-controller="agendamentoController as agd"
+  ng-cloak>
+
+  <section layout="row" flex>
+
+    <md-card flex
+        md-theme="docs-dark"
+        md-theme-watch
+        style="background: url('img/bg-fundoMentorEscolhido-01.jpg');">
+      <md-card-title>
+        <md-card-title-text>
+          <span class="md-subhead">Meu mentor:</span>
+          <span class="md-headline">{{agd.Nome}} {{agd.Sobrenome}}</span>
+          <span>
+            <md-icon md-font-icon="material-icons md-18">place</md-icon>
+            {{agd.Cidade}}, {{agd.UF}}
+          </span>
+          <!--span class="md-subhead">{{agd.Formacao}}</span-->
+          <span layout="row" layout-align="start start" style="width:150px;margin-left:0;margin-top:15px;">
+            <md-icon md-font-icon="material-icons md-32 md-accent">star{{agd.Nivel > 0 ? '' : '_border'}}</md-icon>
+            <md-icon md-font-icon="material-icons md-32 md-accent">star{{agd.Nivel > 1 ? '' : '_border'}}</md-icon>
+            <md-icon md-font-icon="material-icons md-32 md-accent">star{{agd.Nivel > 2 ? '' : '_border'}}</md-icon>
+            <md-icon md-font-icon="material-icons md-32 md-accent">star{{agd.Nivel > 3 ? '' : '_border'}}</md-icon>
+            <md-icon md-font-icon="material-icons md-32 md-accent">star{{agd.Nivel > 4 ? '' : '_border'}}</md-icon>
+          </span>
+          <!-- Icones de votação -->
+          <!--
+          <i class="material-icons">star</i>
+          <i class="material-icons">&#xE838;</i>
+          <i class="material-icons">star_half</i>
+          <i class="material-icons">&#xE839;</i>
+          <i class="material-icons">star_border</i>
+          <i class="material-icons">&#xE83A;</i>
+          -->
+        </md-card-title-text>
+        <md-card-title-media style="margin-right: 17px;">
+          <div class="md-media-lg card-media">
+            <img ng-src="{{ (agd.Foto) ? agd.Foto : 'img/sem-imagem.png' }}" class="md-card-image" alt="Foto" style="border-radius:50% !important;box-sizing:content-box;border: 8px solid #CFD8DC;margin-left: 0px !important;">
+          </div>
+        </md-card-title-media>
+      </md-card-title>
+      <!--md-card-content></md-card-content-->
+      <md-card-actions layout="row" layout-align="start stretch">
+      </md-card-actions>
+    </md-card>
+
+  </section>
+
+  <section layout="row" flex>
+    
+    <md-whiteframe 
+      class="md-whiteframe-2dp" 
+      style="background-color: #fff !important;"
+      flex layout="column" 
+      layout-padding 
+      layout-margin 
+      layout-align="center stretch">
+
+      <p>{{agd.PeriodicidadeDescricao}}:</p>
+
+      <md-radio-group name="DiasDaSemana" ng-model="agd.DiaDaSemanaSelecionado" layout="row" layout-align="space-between center">
+        <md-radio-button ng-repeat="item in agd.ListaDiasDaSemana" ng-value="item">
+          {{item.Descricao}}
+        </md-radio-button>
+      </md-radio-group>
+
+      <br />
+
+      <md-input-container class="md-block">
+        <label>Observações</label>
+        <textarea ng-model="agd.Observacao" md-maxlength="150" rows="5" md-select-on-focus></textarea>
+      </md-input-container>
+
+      <md-button ng-click="agd.Agendar()" md-autofocus class="md-raised md-accent">
+        Confirmar e marcar
+      </md-button>
+
+    </md-whiteframe>
+
+  </section>
+
+  
+
+</div>

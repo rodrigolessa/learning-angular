@@ -1,0 +1,79 @@
+<div layout="column"
+  ng-controller="mentoriaController as mtr"
+  ng-cloak>
+
+  <section layout="row" flex layout-margin layout-align="space-around stretch">
+
+    <!--md-sidenav class="md-sidenav-left" 
+      md-component-id="left" 
+      md-is-locked-open="$mdMedia('gt-xs')" 
+      md-whiteframe="4">
+
+      <md-toolbar class="md-hue-1">
+        <h1 class="md-toolbar-tools">Meu Mentor</h1>
+      </md-toolbar>
+
+      <md-content layout="column" layout-padding  layout-align="center center" style="background-color:transparent !important">
+
+        <div class="md-media-lg card-media">
+          <img ng-src="{{ (mtr.Foto) ? mtr.Foto : 'img/sem-imagem.png' }}" class="md-card-image" alt="Foto" style="text-align:center;width:200px;border-radius:50% !important;box-sizing:content-box;border: 8px solid #CFD8DC;margin-left: 0px !important;">
+        </div>
+
+        <p style="text-align: center;">{{mtr.Nome}} {{mtr.Sobrenome}}</p>
+          
+      </md-content>
+
+    </md-sidenav-->
+
+    <md-content>
+
+      <div layout-padding style="min-width: 950px;">
+
+        <div id="meet" name="meet"></div>
+
+        <!--iframe ng-src="{{sala}}" width="98%" height="400" style="text-align: center"></iframe-->
+
+        <md-input-container class="md-block">
+          <label>Anotações</label>
+          <textarea ng-model="mtr.Anotacao" md-maxlength="150" rows="5" md-select-on-focus></textarea>
+        </md-input-container>
+
+        <div layout="row">
+          
+          <div layout="row">
+
+            <md-button ng-click="mtr.salvarAnotacoes()" md-autofocus class="md-raised md-primary">
+              Salvar anotações
+            </md-button>
+
+            <md-button ng-click="mtr.finalizarSessao()" md-autofocus class="md-raised">
+              Finalizar Sessão
+            </md-button>
+
+          </div>
+
+          <div flex></div>
+
+          <div>
+
+            <form method="post" enctype="multipart/form-data" action="resumoUpload.php" target="resumo">
+
+              <input      type="hidden" name="IdUsuario" id="IdUsuario" />
+              <input      type="file"   name="arquivo" />
+              <md-button  type="submit" name="Gravar" md-autofocus class="md-raised">
+                Upload
+              </md-button>
+
+            </form>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </md-content>
+
+  </section>
+
+</div>
