@@ -19,6 +19,8 @@ Angular 8 CRUD
 ```shel
 npm install -g @angular/cli
 npm install @angular-devkit/build-angular
+
+ng --version # Check if the instalation done right
 ```
 
 ## Basic workflow
