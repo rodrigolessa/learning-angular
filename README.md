@@ -53,11 +53,17 @@ ng add @angular/material
 npm install --save @angular/material @angular/cdk @angular/animations
 ```
 
-Creating new component for login/auth. Generates files based on a schematic.
+Creating new component for the index of the site. Generates files based on a schematic.
 ```shel
+ng generate component inicial
+```
+
+Creating new component for login/auth.
+```shel
+ng generate component autenticacao
+
 cd src
 cd app
-ng generate component autenticacao
 cd autenticacao
 ng generate service autenticacao
 ```
@@ -65,9 +71,12 @@ ng generate service autenticacao
 Configurações do sistema para usuários.
 Creating new areas/module and components. Generates files based on a schematic.
 ```shel
+cd ..
 ng generate module configuracao
+
 cd configuracao
 ng generate module usuario
+
 cd usuario
 ng generate service usuario
 ng generate component usuario-parametro
@@ -77,7 +86,10 @@ ng generate component usuario-perfil
 Configurações do cadastro e manutenção de obras. Partindo da raiz do projeto.
 Creating new components. Generates files based on a schematic.
 ```shel
+cd ..
+cd .. 
 ng generate module obra
+
 cd obra
 ng generate service obra
 ng generate component dashboard
@@ -87,21 +99,51 @@ ng generate component obra-manter
 
 Creating shared components
 ```shel
-ng generate module shared
-cd shared
+cd ..
+ng generate module comum
+
+cd comum
 ng generate component menu-lateral
 ng generate component cabecalho
 ng generate component alerta
-ng generate component dialog
+ng generate component janela
 ng generate component rodape
 ng generate component breadcrumb
-ng generate component chart
+ng generate component grafico
 ng generate directive click-out
 ```
 
 // ?
 // ng generate class teste
 // ng new angular-forms
+
+Para o arquivo "app.module.ts" adicionar as referencias dos seguintes módulos na lista do item "import:":
+- FormsModule
+- HttpClientModule
+- ReactiveFormsModule
+- MatNativeDateModule
+- CommonModule
+- ComumModule # Módulo customizados com os componentes da interface
+
+E adicionar as referências de todos os serviços criados na lista de "providers:":
+- AutenticacaoService
+- UsuarioService
+- ObraService
+
+Definir no arquivos "app-routing.module.ts" as rotas para acessar os módulos e componentes na lista de "const routes: Routes":
+? Como exibir como código ?
+  {
+    path: "",
+    component: InicialComponent
+  },
+  {
+    path: "login",
+    component: AutenticacaoComponent
+  },
+  {
+    path: "obra",
+    loadChildren: "../app/obra/obra.module#ObraModule"
+  },
 
 Validate application code using basic roles
 ```shel
